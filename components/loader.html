@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      .blue-circle {
+        animation-delay: 0.1s;
+      }
+
+      .green-circle {
+        animation-delay: 0.2s;
+      }
+
+      .red-circle {
+        animation-delay: 0.3s;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="
+        overflow-hidden
+        flex
+        justify-center
+        items-center
+        bg-gray-100
+        opacity-80
+        h-screen
+        z-50
+        w-screen
+        fixed
+      "
+      id="preloader"
+    >
+      <div
+        class="
+          bg-white
+          flex
+          space-x-2
+          p-5
+          rounded-full
+          justify-center
+          items-center
+          shadow-2xl
+        "
+      >
+        <div
+          class="
+            bg-blue-600
+            p-2
+            w-4
+            h-4
+            rounded-full
+            animate-bounce
+            blue-circle
+          "
+        ></div>
+        <div
+          class="
+            bg-green-600
+            p-2
+            w-4
+            h-4
+            rounded-full
+            animate-bounce
+            green-circle
+          "
+        ></div>
+        <div
+          class="bg-red-600 p-2 w-4 h-4 rounded-full animate-bounce red-circle"
+        ></div>
+      </div>
+    </div>
+  </body>
+</html>
