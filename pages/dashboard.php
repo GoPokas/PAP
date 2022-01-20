@@ -1,7 +1,7 @@
 <?php
 include('../components/footer.php');
 
-$sql = "SELECT * FROM funcionario WHERE id = '{$_SESSION['idfunc']}'";
+$sql = "SELECT * FROM funcionario WHERE id = '{$_SESSION['numFuncionario']}'";
 
 $result = mysqli_query($conn, $sql);
 

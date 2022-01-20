@@ -1,7 +1,7 @@
 <?php
 include('../components/footer.php');
 
-$sql = "SELECT * FROM funcionario WHERE id = '{$_SESSION['idfunc']}'";
+$sql = "SELECT * FROM funcionario WHERE id = '{$_SESSION['numFuncionario']}'";
 
 $result = mysqli_query($conn, $sql);
 
@@ -23,7 +23,8 @@ $row = mysqli_fetch_assoc($result);
 <body class="font-inter">
     <div class="h-full w-[85%] relative lg:ml-60 top-10">
         <div class="w-[95%] grid grid-cols-1 gap-4">
-            <!-- TODO: fix this bullshit -->
+            <!-- TODO: fix this bullshit 
+            -->
             <?php
             if (mysqli_num_rows($result) > 0) { ?>
                 <div>

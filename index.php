@@ -21,7 +21,7 @@
             </div>
             <form class="flex flex-col space-y-8" action="login.php" method="POST">
                 <img src="imgs/logo.png" alt="Company Logo" class="w-20 h-20 mx-auto">
-                <input type="text" name="idfunc" autofocus placeholder="Nº Funcionário" required class="border rounded-lg py-3 px-3 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-300 focus:bg-gray-300 focus:outline-none">
+                <input type="text" name="numFuncionario" autofocus placeholder="Nº Funcionário" required class="border rounded-lg py-3 px-3 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-300 focus:bg-gray-300 focus:outline-none">
                 <input type="password" name="password" placeholder="Password" required class="border rounded-lg py-3 px-3 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-300 focus:bg-gray-300 focus:outline-none">
                 <button type="submit" class="border border-blue-500 bg-blue-500 text-white rounded-lg py-3 font-semibold uppercase hover:border-blue-700 hover:bg-blue-700 active:border-blue-900 active:bg-blue-900">login</button>
             </form>

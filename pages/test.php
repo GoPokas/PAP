@@ -27,7 +27,7 @@ if (isset($_POST['submit']) && isset($_FILES['my_image'])) {
                 move_uploaded_file($tmp_name, $img_upload_path);
 
                 // Insert into Database
-                $sql = "UPDATE funcionario SET avatarFuncionario = '$new_img_name' WHERE id = '{$_SESSION['idfunc']}'";
+                $sql = "UPDATE user SET avatar = '$new_img_name' WHERE numFuncionario = '{$_SESSION['numFuncionario']}'";
                 mysqli_query($conn, $sql);
                 header('Location: ../pages/dashboard.php');
             } else {

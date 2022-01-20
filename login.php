@@ -2,23 +2,25 @@
 session_start();
 include('user/config.php');
 
-if (empty($_POST['idfunc']) || empty($_POST['password'])) {
+if (empty($_POST['numFuncionario']) || empty($_POST['password'])) {
     header('Location: pages/dashboard.php');
     exit();
 }
 
-$idfunc = mysqli_real_escape_string($conn, $_POST['idfunc']);
+$numFuncionario = mysqli_real_escape_string($conn, $_POST['numFuncionario']);
 $password = mysqli_real_escape_string($conn, $_POST['password']);
-$nomeFuncionario = mysqli_real_escape_string($conn, $_POST['nomeFuncionario']);
 
-$query = "SELECT * FROM user WHERE idfunc = '{$idfunc}' and password = md5('{$password}')";
+$query = "SELECT * FROM user WHERE numFuncionario = '{$numFuncionario}' and password = md5('{$password}')";
 
 $result = mysqli_query($conn, $query);
 
 $row = mysqli_num_rows($result);
 
 if ($row == 1) {
-    $_SESSION['idfunc'] = $idfunc;
+    $_SESSION['numFuncionario'] = $numFuncionario;
     header('Location: pages/dashboard.php');
+    exit();
+} else {
+    header('Location: index.php');
     exit();
 }
