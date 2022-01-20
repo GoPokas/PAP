@@ -37,6 +37,7 @@ $row = mysqli_fetch_assoc($result);
                     <span class="font-bold text-center w-full text-2xl "><?php echo $row['nomeFuncionario'] ?></span>
                 </div>
                 <div class="bg-white rounded-lg shadow-lg mx-auto">
+                    <button><a href="test.php">Editar</a></button>
                     <table class="leading-none text-justify pb-0 w-full table-auto">
                         <thead class="w-full h-full font-bold">
                             <tr>
