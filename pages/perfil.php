@@ -25,12 +25,14 @@ $row = mysqli_fetch_assoc($result);
         <div class="w-[95%] grid grid-cols-1 gap-4">
             <!-- TODO: fix this bullshit 
             -->
-            <?php
-            if (mysqli_num_rows($result) > 0) { ?>
+            <?php if (!empty($row['avatarFuncionario'])) { ?>
                 <div>
                     <img class="rounded-full h-40 w-40 mx-auto shadow" alt="Profile picture" src="../imgs/pfps/<?= $row['avatarFuncionario'] ?>">
                 </div>
-
+            <?php } else {?>
+                <div>
+                    <img class="rounded-full h-40 w-40 mx-auto shadow" alt="Profile picture" src="../imgs/default-avatar.png">
+                </div>
             <?php } ?>
             <div class="bg-white rounded-lg p-4">
                 <div class="flex mb-2 top-2 w-full text-center">
