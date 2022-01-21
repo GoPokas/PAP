@@ -28,13 +28,13 @@ if (isset($_POST['submit']) && isset($_FILES['my_image'])) {
 
             if (in_array($img_ex_lc, $allowed_exs)) {
                 $new_img_name = "PFP-" . $_SESSION['numFuncionario'] . '.' . $img_ex_lc;
-                if($img_ex_lc = "jpg"){
-                   unlink($target_dir . "PFP-" . $_SESSION['numFuncionario'] . '.jpg');
-                } else if($img_ex_lc = "jpeg"){
-                   unlink($target_dir . "PFP-" . $_SESSION['numFuncionario'] . '.jpeg');
-                } else if($img_ex_lc = "png"){
-                   unlink($target_dir . "PFP-" . $_SESSION['numFuncionario'] . '.png');
-                }
+                    if(file_exists($target_dir. "PFP-" . $_SESSION['numFuncionario'] . '.' . 'jpg')){
+                       unlink($target_dir . "PFP-" . $_SESSION['numFuncionario'] . '.jpg');
+                    } else if(file_exists($target_dir. "PFP-" . $_SESSION['numFuncionario'] . '.' . 'jpeg')){
+                       unlink($target_dir . "PFP-" . $_SESSION['numFuncionario'] . '.jpeg');
+                    } else if(file_exists($target_dir. "PFP-" . $_SESSION['numFuncionario'] . '.' . 'png')){
+                       unlink($target_dir . "PFP-" . $_SESSION['numFuncionario'] . '.png');
+                    }
                 $img_upload_path = $target_dir . $new_img_name;
                 move_uploaded_file($tmp_name, $img_upload_path);
                 if(!file_exists('../imgs/pfps' . $new_img_name)) {
