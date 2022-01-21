@@ -17,8 +17,6 @@ if (isset($_POST['submit']) && isset($_FILES['my_image'])) {
 
     if ($error === 0) {
         if ($img_size > 10000000) {
-            $em = "A sua imagem tem que ser mais pequena!";
-            // header("Location: test.php?error=$em");
         } else {
 
             $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
@@ -37,44 +35,12 @@ if (isset($_POST['submit']) && isset($_FILES['my_image'])) {
                     }
                 $img_upload_path = $target_dir . $new_img_name;
                 move_uploaded_file($tmp_name, $img_upload_path);
-                if(!file_exists('../imgs/pfps' . $new_img_name)) {
                     // Insert into Database
                     $sql = "UPDATE funcionario SET avatarFuncionario = '$new_img_name' WHERE idUser = '{$_SESSION['numFuncionario']}'";
                     mysqli_query($conn, $sql);
                     header('Location: ../pages/perfil.php');
-                }
             }
         }
     }
 }
-include('../components/footer.php');
-
 ?>
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Image Upload Using PHP</title>
-
-</head>
-
-<body>
-    <?php if (isset($_GET['error'])) : ?>
-        <p><?php echo $_GET['error']; ?></p>
-
-    <?php endif ?>
-    <form action="" method="post" enctype="multipart/form-data">
-
-        <input type="file" name="my_image">
-
-        <input type="submit" name="submit" value="Upload">
-
-    </form>
-</body>
-<script>
-    if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
-    }
-</script>
-
-</html>
