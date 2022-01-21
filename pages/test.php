@@ -16,7 +16,7 @@ if (isset($_POST['submit']) && isset($_FILES['my_image'])) {
     $error = $_FILES['my_image']['error'];
 
     if ($error === 0) {
-        if ($img_size > 1000000) {
+        if ($img_size > 10000000) {
             $em = "A sua imagem tem que ser mais pequena!";
             // header("Location: test.php?error=$em");
         } else {
