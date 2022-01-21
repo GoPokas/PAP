@@ -21,9 +21,9 @@ $row = mysqli_fetch_assoc($result);
 
 
 <body class="font-inter">
-    <div class="h-full w-[85%] relative lg:ml-60 top-10">
+    <div class="h-full w-[85%] relative ml-60 top-10">
         <div class="w-[95%] grid grid-cols-1 gap-4">
-            <!-- TODO: fix this bullshit 
+            <!-- TODO: fix the wrong positioning of the profile 
             -->
             <?php if (!empty($row['avatarFuncionario'])) { ?>
                 <div>
@@ -39,7 +39,7 @@ $row = mysqli_fetch_assoc($result);
                     <span class="font-bold text-center w-full text-2xl "><?php echo $row['nomeFuncionario'] ?></span>
                 </div>
                 <div class="bg-white rounded-lg shadow-lg mx-auto">
-                    <button><a href="test.php">Editar</a></button>
+                    <button class="pd-10"><a href="edit_perfil.php">Editar</a></button>
                     <table class="leading-none text-justify pb-0 w-full table-auto">
                         <thead class="w-full h-full font-bold">
                             <tr>
