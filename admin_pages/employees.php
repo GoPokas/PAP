@@ -1,5 +1,5 @@
 <?php
-include('../components/footer.php');
+include "../components/footer.php";
 
 $sql = "SELECT * FROM funcionario";
 
@@ -33,12 +33,18 @@ $result = mysqli_query($conn, $sql);
                             <th></th>
                         </thead>
                         <tbody>
-                            <?php while ($row = mysqli_fetch_array($result)) { ?>
+                            <?php while (
+                              $row = mysqli_fetch_array($result)
+                            ) { ?>
                                 <tr class="odd:bg-white even:bg-gray-100 h-8">
-                                    <td class="py-1.5 pl-2"><img class="rounded-full shadow-2xl w-10 h-10 object-cover" src="../imgs/pfps/<?= $row['avatarFuncionario'] ?>"></td>
-                                    <td class="font-semibold"><?= $row['nomeFuncionario'] ?></td>
-                                    <td><?= $row['nomeFuncionario'] ?></td>
-                                    <td><?= $row['nomeFuncionario'] ?></td>
+                                    <td class="py-1.5 pl-2"><img class="rounded-full shadow-2xl w-10 h-10 object-cover" src="../imgs/pfps/<?= $row[
+                                      "avatarFuncionario"
+                                    ] ?>"></td>
+                                    <td class="font-semibold"><?= $row[
+                                      "nomeFuncionario"
+                                    ] ?></td>
+                                    <td><?= $row["nomeFuncionario"] ?></td>
+                                    <td><?= $row["nomeFuncionario"] ?></td>
                                     <td>
                                         <button class="items-end opacity-70">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">

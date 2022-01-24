@@ -1,12 +1,11 @@
 <?php
-include('../components/footer.php');
+include "../components/footer.php";
 
-$sql = "SELECT * FROM funcionario WHERE id = '{$_SESSION['numFuncionario']}'";
+$sql = "SELECT * FROM funcionario WHERE id = '{$_SESSION["numFuncionario"]}'";
 
 $result = mysqli_query($conn, $sql);
 
 $row = mysqli_fetch_assoc($result);
-
 ?>
 
 <!DOCTYPE html>
@@ -25,18 +24,22 @@ $row = mysqli_fetch_assoc($result);
         <div class="w-[95%] grid grid-cols-1 gap-4">
             <!-- TODO: fix the wrong positioning of the profile 
             -->
-            <?php if (!empty($row['avatarFuncionario'])) { ?>
+            <?php if (!empty($row["avatarFuncionario"])) { ?>
                 <div>
-                    <img class="rounded-full h-40 w-40 mx-auto shadow" alt="Profile picture" src="../imgs/pfps/<?= $row['avatarFuncionario'] ?>">
+                    <img class="rounded-full h-40 w-40 mx-auto shadow" alt="Profile picture" src="../imgs/pfps/<?= $row[
+                      "avatarFuncionario"
+                    ] ?>">
                 </div>
-            <?php } else {?>
+            <?php } else { ?>
                 <div>
                     <img class="rounded-full h-40 w-40 mx-auto shadow" alt="Profile picture" src="../imgs/default-avatar.png">
                 </div>
             <?php } ?>
             <div class="bg-white rounded-lg p-4">
                 <div class="flex mb-2 top-2 w-full text-center">
-                    <span class="font-bold text-center w-full text-2xl "><?php echo $row['nomeFuncionario'] ?></span>
+                    <span class="font-bold text-center w-full text-2xl "><?php echo $row[
+                      "nomeFuncionario"
+                    ]; ?></span>
                 </div>
                 <div class="bg-white rounded-lg shadow-lg mx-auto">
                     <button class="pd-10"><a href="edit_perfil.php">Editar</a></button>

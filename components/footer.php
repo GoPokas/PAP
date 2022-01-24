@@ -1,9 +1,8 @@
 <?php
-include('../components/loader.html');        // Page Loader
-require_once('../user/login_verify.php');    // Check if user is logged in
-include('../components/header.php');
-include('../components/sidebar.php');
-
+include "../components/loader.html"; // Page Loader
+require_once "../user/login_verify.php"; // Check if user is logged in
+include "../components/header.php";
+include "../components/sidebar.php";
 ?>
 
 

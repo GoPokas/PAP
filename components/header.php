@@ -1,12 +1,11 @@
 <?php
-require('../user/config.php');
+require "../user/config.php";
 
-$sql = "SELECT * FROM funcionario WHERE id = '{$_SESSION['numFuncionario']}'";
+$sql = "SELECT * FROM funcionario WHERE id = '{$_SESSION["numFuncionario"]}'";
 
 $result = mysqli_query($conn, $sql);
 
 $row = mysqli_fetch_assoc($result);
-
 ?>
 
 <!DOCTYPE html>
@@ -21,13 +20,15 @@ $row = mysqli_fetch_assoc($result);
 
 <body class="font-inter overflow-hidden z-50">
     <div class="bg-white float-right">
-        <div class="container ml-auto flex w-full items-end justify-end">
+        <div class="ml-auto container flex w-full items-end justify-end">
             <div class="flex items-center flex-row justify-end">
                 <div class="group inline-block float-none p-4">
                     <button id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation" type="button" class="z-50">
-                        <?php if (!empty($row['avatarFuncionario'])) { ?>
-                            <img class="rounded-full shadow-2xl w-10 h-10 object-cover" alt="Profile picture" src="../imgs/pfps/<?= $row['avatarFuncionario'] ?>">
-                        <?php } else {?>
+                        <?php if (!empty($row["avatarFuncionario"])) { ?>
+                            <img class="rounded-full shadow-2xl w-10 h-10 object-cover" alt="Profile picture" src="../imgs/pfps/<?= $row[
+                              "avatarFuncionario"
+                            ] ?>">
+                        <?php } else { ?>
                             <img class="rounded-full shadow-2xl w-10 h-10 object-cover" alt="Profile picture" src="../imgs/default-avatar.png">
                         <?php } ?>
                     </button>
@@ -35,8 +36,12 @@ $row = mysqli_fetch_assoc($result);
                     <!-- Dropdown menu -->
                     <div id="dropdownInformation" class="hidden z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow">
                         <div class="py-3 px-4 text-gray-900">
-                            <span class="block text-sm font-semibold"><?php echo $row['nomeFuncionario'] ?></span>
-                            <span class="block text-sm"><?php echo $row['emailFuncionario'] ?></span>
+                            <span class="block text-sm font-semibold"><?php echo $row[
+                              "nomeFuncionario"
+                            ]; ?></span>
+                            <span class="block text-sm"><?php echo $row[
+                              "emailFuncionario"
+                            ]; ?></span>
                         </div>
                         <ul class="py-1" aria-labelledby="dropdownInformationButton">
                             <li>
