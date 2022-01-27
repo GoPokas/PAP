@@ -21,7 +21,12 @@ $row = mysqli_fetch_assoc($result);
     <div class="h-full w-[80%] relative overflow-hidden ml-60 top-[3.75rem]">
         <div class="w-[95%]  grid grid-cols-2 gap-4">
             <div class="bg-white rounded-lg p-4">
-                <span class="text-2xl sm:text-4xl leading-none text-gray-900 pb-4">Bem-vindo,
+                <span class="text-2xl sm:text-4xl leading-none text-gray-900 pb-4">
+                    <?php if ($row["generoFuncionario"] == "M") {
+                      echo "Bem-vindo, ";
+                    } else {
+                      echo "Bem-vinda, ";
+                    } ?>
                     <?php echo strtok($row["nomeFuncionario"], " "); ?>
                 </span>
                 <div class="bg-white rounded-lg shadow-lg">

@@ -34,7 +34,7 @@ $row = mysqli_fetch_assoc($result);
                     </button>
 
                     <!-- Dropdown menu -->
-                    <div id="dropdownInformation" class="hidden z-10 w-44 text-base list-none bg-white rounded divide-y divide-gray-100 shadow">
+                    <div id="dropdownInformation" class="hidden z-10 w-50 text-base list-none bg-white rounded divide-y divide-gray-100 shadow">
                         <div class="py-3 px-4 text-gray-900">
                             <span class="block text-sm font-semibold"><?php echo $row[
                               "nomeFuncionario"
