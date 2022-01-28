@@ -1,7 +1,8 @@
 <?php
 include "../components/footer.php";
 
-$sql = "SELECT * FROM funcionario";
+$sql =
+  "SELECT * FROM funcionario_has_departamento INNER JOIN funcionario ON funcionario_has_departamento.funcionario_id = funcionario.id INNER JOIN departamento ON funcionario_has_departamento.departamento_idDepartamento = departamento.idDepartamento;";
 
 $result = mysqli_query($conn, $sql);
 ?>
@@ -43,7 +44,7 @@ $result = mysqli_query($conn, $sql);
                                     <td class="font-semibold"><?= $row[
                                       "nomeFuncionario"
                                     ] ?></td>
-                                    <td><?= $row["nomeFuncionario"] ?></td>
+                                    <td><?= $row["nomeDepartamento"] ?></td>
                                     <td><?= $row["nomeFuncionario"] ?></td>
                                     <td>
                                         <button class="items-end opacity-70">
