@@ -30,7 +30,7 @@ $result = mysqli_query($conn, $sql);
                             <th></th>
                             <th>Nome</th>
                             <th>Departamento</th>
-                            <th>Posição</th>
+                            <th>Cargo</th>
                             <th></th>
                         </thead>
                         <tbody>
@@ -41,9 +41,13 @@ $result = mysqli_query($conn, $sql);
                                     <td class="py-1.5 pl-2"><img class="rounded-full shadow-2xl w-10 h-10 object-cover" src="../imgs/pfps/<?= $row[
                                       "avatarFuncionario"
                                     ] ?>"></td>
-                                    <td class="font-semibold"><?= $row[
-                                      "nomeFuncionario"
-                                    ] ?></td>
+                                    <td class="font-semibold"><?php
+                                    $exp = explode(
+                                      " ",
+                                      $row["nomeFuncionario"]
+                                    );
+                                    echo current($exp) . " " . end($exp);
+                                    ?></td>
                                     <td><?= $row["nomeDepartamento"] ?></td>
                                     <td><?= $row["nomeFuncionario"] ?></td>
                                     <td>
