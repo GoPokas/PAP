@@ -47,9 +47,6 @@ $row = mysqli_fetch_assoc($result);
                             <li>
                                 <a href="../pages/perfil.php" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 ">Perfil</a>
                             </li>
-                            <li>
-                                <a href="#" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 ">Preferências</a>
-                            </li>
                         </ul>
                         <div class="py-1">
                             <a href="../user/logout.php" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 ">Logout</a>
