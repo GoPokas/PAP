@@ -37,6 +37,10 @@ $row = mysqli_fetch_assoc($result);
                     echo current($exp) . " " . end($exp);
                     ?>
                     </span>
+                    <span class="text-lg"><?php echo $row[
+                      "nomeDepartamento"
+                    ]; ?>
+                    </span>
                 </div>
             </div>
             <div class="bg-white rounded-lg pl-4 float-left h-[90%] w-[80%]">
