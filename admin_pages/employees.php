@@ -1,8 +1,11 @@
 <?php
 include "../components/footer.php";
 
-$sql =
-  "SELECT * FROM funcionario_has_departamento INNER JOIN funcionario ON funcionario_has_departamento.funcionario_id = funcionario.id INNER JOIN departamento ON funcionario_has_departamento.departamento_idDepartamento = departamento.idDepartamento;";
+$sql = "SELECT * FROM funcionario_has_departamento 
+    INNER JOIN funcionario ON funcionario_has_departamento.funcionario_id = funcionario.id 
+    INNER JOIN departamento ON funcionario_has_departamento.departamento_id = departamento.id
+    INNER JOIN funcionario_has_cargos ON funcionario.id = funcionario_has_cargos.funcionario_id
+    INNER JOIN cargos ON funcionario_has_cargos.cargos_id = cargos.id ";
 
 $result = mysqli_query($conn, $sql);
 ?>
@@ -49,7 +52,7 @@ $result = mysqli_query($conn, $sql);
                                     echo current($exp) . " " . end($exp);
                                     ?></td>
                                     <td><?= $row["nomeDepartamento"] ?></td>
-                                    <td><?= $row["nomeFuncionario"] ?></td>
+                                    <td><?= $row["nomeCargo"] ?></td>
                                     <td>
                                         <button class="items-end opacity-70">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
