@@ -2,6 +2,11 @@
 session_start();
 include "config.php";
 
+if (empty($_POST["numFuncionario"]) || empty($_POST["password"])) {
+  header("Location: ../index.php");
+  exit();
+}
+
 $numFuncionario = mysqli_real_escape_string($conn, $_POST["numFuncionario"]);
 $password = mysqli_real_escape_string($conn, $_POST["password"]);
 
