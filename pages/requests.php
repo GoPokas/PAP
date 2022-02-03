@@ -1,5 +1,15 @@
 <?php
-include "../components/footer.php"; ?>
+
+$sql = "SELECT * FROM funcionario
+        INNER JOIN marcacao ON funcionario
+        WHERE funcionario.id = '{$_SESSION["numFuncionario"]}'";
+
+$result = mysqli_query($conn, $sql);
+
+$row = mysqli_fetch_assoc($result);
+
+include "../components/footer.php";
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +27,7 @@ include "../components/footer.php"; ?>
             <div class="bg-white rounded-lg p-4 sm:p-6 xl:p-8">
                 <span class="text-2xl sm:text-4xl leading-none font-bold text-gray-900 pb-4">Histórico de Pedidos</span>
                 <div class="bg-white rounded-lg shadow-lg">
-                    <div class="pb-2">
+                    <div>
                         <table class="leading-none text-center pb-0 w-full gap-4 table-auto">
                             <thead class="bg-cyan-600 text-xl font-bold text-white text-opacity-85 w-full h-full">
                                 <th>Tipo</th>
@@ -28,8 +38,7 @@ include "../components/footer.php"; ?>
                             </thead>
                             <tbody class="">
                                 <tr class="odd:bg-white even:bg-gray-100 h-8">
-                                    <td class="">Férias
-                                    </td>
+                                    <td class="">Férias</td>
                                     <td class="">4 dias</td>
                                     <td class="">Dentro de 4 dias</td>
                                     <td class="">
