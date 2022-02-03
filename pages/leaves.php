@@ -10,8 +10,6 @@ include "../components/footer.php"; ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../imgs/myIcon.ico" type="image/x-icon">
 </head>
-<!-- TODO: Make the table on the database for the requests and make the code for it
--->
 <body class="font-inter">
     <div class="h-full w-[80%] relative overflow-hidden lg:ml-60 top-10">
         <div class="w-[95%]  grid grid-cols-1 gap-4">

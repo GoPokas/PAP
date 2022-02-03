@@ -1,0 +1,18 @@
+Todos:
+    Profile:
+        ☐ Finish the new profile page @high
+        ☐ Do the profile edition page and make it work @low
+    Leaves:
+        ☐ Make the sql table for the leaves and code for it @critical
+        ☐ Finish the leaves page @critical
+    Dashboard:
+        ☐ After finishing the leaves page, finish the dashboard page @low
+    Settings:
+        ☐ After finishing the leaves page, finish the settings page @low
+    Approvals:
+        ☐ After finishing the leaves page, finish the approvals page @low
+    Calendar:
+        ☐ After finishing the leaves page, finish the calendar page @low
+        ☐ Look for a calendar and use it @low
+    My requests:
+        ☐ Do the sql for my requests after finishing the leaves page @low

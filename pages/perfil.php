@@ -28,8 +28,6 @@ $row = mysqli_fetch_assoc($result);
 <body class="font-inter">
     <div class="h-full w-[85%] relative ml-60 top-[3rem]">
         <div class="w-[95%] gap-4">
-            <!-- TODO: New profile
-            -->
             <div class="w-[12.5rem] float-left">
                 <img class="rounded-full h-[12.5rem] w-[12.5rem] shadow" alt="Profile picture" src="../imgs/pfps/<?= $row[
                   "avatarFuncionario"
