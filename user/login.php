@@ -1,6 +1,6 @@
 <?php
 session_start();
-include "user/config.php";
+include "config.php";
 
 $numFuncionario = mysqli_real_escape_string($conn, $_POST["numFuncionario"]);
 $password = mysqli_real_escape_string($conn, $_POST["password"]);
@@ -13,9 +13,9 @@ $row = mysqli_num_rows($result);
 
 if ($row == 1) {
   $_SESSION["numFuncionario"] = $numFuncionario;
-  header("Location: pages/dashboard.php");
+  header("Location: ../pages/dashboard.php");
   exit();
 } else {
-  header("Location: index.php?error=1");
+  header("Location: ../index.php?error=1");
   exit();
 }
