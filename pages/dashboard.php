@@ -20,8 +20,8 @@ $row = mysqli_fetch_assoc($result);
 </head>
 
 <body class="font-inter">
-    <div class="h-full w-[80%] relative overflow-hidden ml-60 top-[3.75rem]">
-        <div class="w-[95%]  grid grid-cols-2 gap-4">
+    <div class="h-full w-[80%] relative overflow-hidden ml-60 top-[3.75rem] align-middle">
+        <div class="w-[95%] grid grid-cols-2 gap-4">
             <div class="bg-white rounded-lg p-4">
                 <span class="text-2xl sm:text-4xl leading-none text-gray-900 pb-4">
                     <?php if (
@@ -43,12 +43,12 @@ $row = mysqli_fetch_assoc($result);
                 </div>
             </div>
             <div class="bg-white rounded-lg p-4">
-                <span class="text-2xl sm:text-4xl leading-none font-bold text-white pb-4">.
+                <span class="text-2xl sm:text-4xl leading-none text-white pb-4">.
                 </span>
-                <div class="bg-white rounded-lg shadow-lg top-60">
+                <div class="bg-white rounded-lg shadow-lg">
                     <div class="flex items-center justify-between top-2">
                     </div>
-                    <div class="p-3">
+                    <div class="p-3 flex items-end">
                         <span class="text-lg leading-none font-semibold text-gray-900 p-2 pb-0">Dias Gozados</span>
                     </div>
                 </div>
