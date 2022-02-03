@@ -5,3 +5,5 @@
 *.js linguist-detectable=true
 *.css linguist-detectable=true
 *.html linguist-detectable=true
+
+node_modules/** linguist-ignore=true
