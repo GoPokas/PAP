@@ -1,7 +1,9 @@
 <?php
 include "../components/footer.php";
 
-$sql = "SELECT * FROM funcionario WHERE id = '{$_SESSION["numFuncionario"]}'";
+$sql = "SELECT * FROM funcionario
+        INNER JOIN genero on funcionario.idGenero = genero.id 
+        WHERE funcionario.id = '{$_SESSION["numFuncionario"]}'";
 
 $result = mysqli_query($conn, $sql);
 
@@ -22,9 +24,12 @@ $row = mysqli_fetch_assoc($result);
         <div class="w-[95%]  grid grid-cols-2 gap-4">
             <div class="bg-white rounded-lg p-4">
                 <span class="text-2xl sm:text-4xl leading-none text-gray-900 pb-4">
-                    <?php if ($row["generoFuncionario"] == "M") {
+                    <?php if (
+                      $row["abreviaturaGenero"] == "M" ||
+                      $row["abreviaturaGenero"] == "O"
+                    ) {
                       echo "Bem-vindo, ";
-                    } else {
+                    } elseif ($row["abreviaturaGenero"] == "F") {
                       echo "Bem-vinda, ";
                     } ?>
                     <?php echo strtok($row["nomeFuncionario"], " "); ?>
