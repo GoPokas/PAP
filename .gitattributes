@@ -6,4 +6,4 @@
 *.css linguist-detectable=true
 *.html linguist-detectable=true
 
-node_modules/** linguist-ignore=true
+node_modules/** linguist-vendored=true
