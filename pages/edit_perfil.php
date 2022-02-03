@@ -67,8 +67,6 @@ if (isset($_POST["submit"]) && isset($_FILES["my_image"])) {
     <link rel="shortcut icon" href="/imgs/favicon.ico" type="image/x-icon">
 </head>
 
-<!-- FIXME: image upload not working 
--->
 <body class="font-inter">
     <div class="h-full w-[85%] relative ml-60 top-10">
         <div class="w-[95%] grid grid-cols-1 gap-4">
