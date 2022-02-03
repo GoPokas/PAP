@@ -28,16 +28,18 @@ if (isset($_POST["submit"]) && isset($_FILES["my_image"])) {
         $new_img_name = "PFP-" . $_SESSION["numFuncionario"] . "." . $img_ex_lc;
         if ($img_ex_lc = "jpg") {
           unlink($target_dir . "PFP-" . $_SESSION["numFuncionario"] . ".jpg");
-        } elseif ($img_ex_lc = "jpeg") {
+        }
+        if ($img_ex_lc = "jpeg") {
           unlink($target_dir . "PFP-" . $_SESSION["numFuncionario"] . ".jpeg");
-        } elseif ($img_ex_lc = "png") {
+        }
+        if ($img_ex_lc = "png") {
           unlink($target_dir . "PFP-" . $_SESSION["numFuncionario"] . ".png");
         }
         $img_upload_path = $target_dir . $new_img_name;
         move_uploaded_file($tmp_name, $img_upload_path);
         if (!file_exists("../imgs/pfps" . $new_img_name)) {
           // Insert into Database
-          $sql = "UPDATE funcionario SET avatarFuncionario = '$new_img_name' WHERE idUser = '{$_SESSION["numFuncionario"]}'";
+          $sql = "UPDATE funcionario SET avatarFuncionario = '$new_img_name' WHERE funcionario.id = '{$_SESSION["numFuncionario"]}'";
           mysqli_query($conn, $sql);
           header("Location: ../pages/perfil.php");
         }
