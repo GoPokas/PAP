@@ -38,7 +38,7 @@ $row = mysqli_fetch_assoc($result);
                     <div class="flex items-center justify-between top-2">
                     </div>
                     <div class="p-3 flex items-end">
-                        <span class="text-lg leading-none font-semibold text-gray-900 p-2 pb-0">Próximas Ausências</span>
+                        <span class="text-lg leading-none font-semibold text-gray-900 p-2 pb-0">Pedidos</span>
                     </div>
                 </div>
             </div>
