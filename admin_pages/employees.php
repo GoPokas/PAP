@@ -1,15 +1,5 @@
 <?php
-include "../components/footer.php";
-
-$sql = "SELECT * FROM funcionario_has_departamento 
-    INNER JOIN funcionario ON funcionario_has_departamento.funcionario_id = funcionario.id 
-    INNER JOIN departamento ON funcionario_has_departamento.departamento_id = departamento.id
-    INNER JOIN funcionario_has_cargos ON funcionario.id = funcionario_has_cargos.funcionario_id
-    INNER JOIN cargos ON funcionario_has_cargos.cargos_id = cargos.id
-    INNER JOIN genero on funcionario.idGenero = genero.id";
-
-$result = mysqli_query($conn, $sql);
-?>
+include "../components/footer.php"; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,9 +37,16 @@ $result = mysqli_query($conn, $sql);
                             <th></th>
                         </thead>
                         <tbody>
-                            <?php while (
-                              $row = mysqli_fetch_array($result)
-                            ) { ?>
+                            <?php
+                            $sql = "SELECT * FROM funcionario_has_departamento 
+                                    INNER JOIN funcionario ON funcionario_has_departamento.funcionario_id = funcionario.id 
+                                    INNER JOIN departamento ON funcionario_has_departamento.departamento_id = departamento.id
+                                    INNER JOIN funcionario_has_cargos ON funcionario.id = funcionario_has_cargos.funcionario_id
+                                    INNER JOIN cargos ON funcionario_has_cargos.cargos_id = cargos.id
+                                    INNER JOIN genero on funcionario.idGenero = genero.id
+                                    LIMIT 10";
+                            $result = mysqli_query($conn, $sql);
+                            while ($row = mysqli_fetch_array($result)) { ?>
                                 <tr class="odd:bg-white even:bg-gray-100 h-8">
                                     <td class="py-1.5 pl-2"><img class="rounded-full shadow-2xl w-10 h-10 object-cover" src="../imgs/pfps/<?= $row[
                                       "avatarFuncionario"
@@ -72,7 +69,8 @@ $result = mysqli_query($conn, $sql);
                                         </button>
                                     </td>
                                 </tr>
-                            <?php } ?>
+                            <?php }
+                            ?>
                         </tbody>
                     </table>
                 </div>
