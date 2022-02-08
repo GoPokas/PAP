@@ -25,12 +25,14 @@ $result = mysqli_query($conn, $sql);
     <div class="h-full w-[80%] relative overflow-hidden lg:ml-60 top-10">
         <div class="w-[95%] grid grid-cols-1 gap-4">
             <div class="bg-white rounded-lg p-4 sm:p-6 xl:p-8">
-                <span class="text-2xl sm:text-4xl leading-none font-bold text-gray-900 pb-4">Lista de funcionários</span>
+                <span class="text-2xl sm:text-4xl leading-none font-bold text-gray-900 pb-1 pr-3">Lista de funcionários</span>
                 <button class="bg-cyan-800 p-2 rounded-full text-white font-bold">
-                    <div class="flex w-full items-center mx-auto">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-                        </svg>Novo user
+                    <div class="p-1 pr-2">
+                        <a href="user_create.php" class="flex w-full items-center mx-auto">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                            </svg>NOVO USER
+                        </a>
                     </div>
                 </button>
                 <div class="bg-white rounded-lg shadow-lg">
@@ -41,7 +43,7 @@ $result = mysqli_query($conn, $sql);
                             <th></th>
                             <th>Nome</th>
                             <th>Departamento</th>
-                            <th>Função</th>
+                            <th>Cargo</th>
                             <th></th>
                         </thead>
                         <tbody>
