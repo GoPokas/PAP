@@ -27,13 +27,13 @@ $result = mysqli_query($conn, $sql);
             <div class="bg-white rounded-lg p-4 sm:p-6 xl:p-8">
                 <span class="text-2xl sm:text-4xl leading-none font-bold text-gray-900 pb-1 pr-3">Lista de funcionários</span>
                 <button class="bg-cyan-800 p-2 rounded-full text-white font-bold">
-                    <div class="p-1 pr-2">
-                        <a href="user_create.php" class="flex w-full items-center mx-auto">
+                    <a href="user_create.php">
+                        <div class="p-1 pr-2 flex w-full items-center mx-auto">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
                             </svg>NOVO USER
-                        </a>
-                    </div>
+                        </div>
+                    </a>
                 </button>
                 <div class="bg-white rounded-lg shadow-lg">
                     <div class="flex items-center justify-between mb-4 top-2">
