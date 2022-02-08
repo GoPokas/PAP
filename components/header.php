@@ -22,6 +22,9 @@ $row = mysqli_fetch_assoc($result);
     <div class="bg-white float-right">
         <div class="ml-auto container flex w-full items-end justify-end">
             <div class="flex items-center flex-row justify-end">
+                <span class="font-semibold"><?php echo $row[
+                  "nomeFuncionario"
+                ]; ?> </span>
                 <div class="group inline-block float-none p-4">
                     <button id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation" type="button" class="z-50">
                         <?php if (!empty($row["avatarFuncionario"])) { ?>
@@ -37,9 +40,6 @@ $row = mysqli_fetch_assoc($result);
                     <div id="dropdownInformation" class="hidden z-10 w-50 text-base list-none bg-white rounded divide-y divide-gray-100 shadow">
                         <div class="py-3 px-4 text-gray-900">
                             <span class="block text-sm font-semibold"><?php echo $row[
-                              "nomeFuncionario"
-                            ]; ?></span>
-                            <span class="block text-sm"><?php echo $row[
                               "emailFuncionario"
                             ]; ?></span>
                         </div>
