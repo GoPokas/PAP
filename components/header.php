@@ -27,13 +27,9 @@ $row = mysqli_fetch_assoc($result);
                 ]; ?> </span>
                 <div class="group inline-block float-none p-4">
                     <button id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation" type="button" class="z-50">
-                        <?php if (!empty($row["avatarFuncionario"])) { ?>
                             <img class="rounded-full shadow-2xl w-10 h-10 object-cover" alt="Profile picture" src="../imgs/pfps/<?= $row[
                               "avatarFuncionario"
                             ] ?>">
-                        <?php } else { ?>
-                            <img class="rounded-full shadow-2xl w-10 h-10 object-cover" alt="Profile picture" src="../imgs/default-avatar.png">
-                        <?php } ?>
                     </button>
 
                     <!-- Dropdown menu -->
