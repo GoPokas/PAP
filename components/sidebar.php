@@ -21,8 +21,8 @@ $row = mysqli_fetch_assoc($result);
 <body class="font-inter">
     <!-- component -->
     <!-- <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script> -->
-    <div class="md:flex flex-col md:flex-row md:min-h-screen h-full absolute z-30">
-        <div class="flex flex-col w-full md:w-48 text-gray-700 bg-sky-800 flex-shrink-0">
+    <div class="flex flex-row min-h-screen absolute z-30">
+        <div class="flex flex-col w-48 text-gray-700 bg-sky-800 flex-shrink-0">
             <div class="flex-shrink-0 px-8 py-4 flex flex-row items-center justify-between">
                 <a href="dashboard.php" class="rounded-lg focus:outline-none focus:shadow-outline"><img src="../imgs/logo.png" alt="Logo" class="w-1/2 ml-auto mr-auto block"></a>
             </div>
