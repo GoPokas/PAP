@@ -24,6 +24,8 @@ Todos:
     Employees:
         ✔ Limit the showing of employees to 10 @done(22-02-10 09:10)
         ☐ Create a page system, where the employees can be all shown in different pages @high
+    Index:
+        ☐ Fix error missalignment @low
 Not necessary additions:
     ☐ Make the button on employees page to redirect to that employee's profile
     ☐ On the dashboard, on the leaves card, make a button to accept or decline it from there (*admin only*)
