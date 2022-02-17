@@ -43,10 +43,10 @@ $row = mysqli_fetch_assoc($result);
                             <li>
                                 <a href="../pages/perfil.php" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 ">Perfil</a>
                             </li>
+                            <div>
+                                <a href="../user/logout.php" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 ">Logout</a>
+                            </div>
                         </ul>
-                        <div class="py-1">
-                            <a href="../user/logout.php" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 ">Logout</a>
-                        </div>
                     </div>
                 </div>
             </div>
