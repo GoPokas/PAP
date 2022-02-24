@@ -16,6 +16,7 @@ $row = mysqli_fetch_assoc($result);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://unpkg.com/@themesberg/flowbite@1.2.0/dist/flowbite.min.css" />
+    <link rel="stylesheet" href="../css/tailwind.css">
 </head>
 
 <body class="font-inter overflow-hidden z-50">
