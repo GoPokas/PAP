@@ -22,7 +22,7 @@ $row = mysqli_fetch_assoc($result);
 
 <body class="font-inter">
     <div class="h-full w-[80%] relative overflow-hidden ml-60 top-[3.75rem] align-middle">
-        <span class="text-2xl sm:text-4xl text-gray-900">
+        <span class="text-2xl sm:text-4xl text-gray-900 font-bold">
             <?php if (
               $row["abreviaturaGenero"] == "M" ||
               $row["abreviaturaGenero"] == "O"

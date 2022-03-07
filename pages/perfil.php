@@ -47,8 +47,6 @@ $row = mysqli_fetch_assoc($result);
             </div>
             <div class="bg-white rounded-lg pl-4 float-left h-[90%] w-[80%]">
                 <div class="bg-white rounded-lg shadow-lg right-10">
-                    <button class="pd-10"><a href="edit_perfil.php">Editar</a></button>
-
                 </div>
             </div>
         </div>

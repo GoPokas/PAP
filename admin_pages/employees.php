@@ -16,7 +16,7 @@ include "../components/footer.php"; ?>
         <div class="w-[95%] grid grid-cols-1 gap-4">
             <div class="bg-white rounded-lg p-4 sm:p-6 xl:p-8">
                 <span class="text-2xl sm:text-4xl leading-none font-bold text-gray-900 pb-1 pr-3">Lista de funcionários</span>
-                <button class="bg-cyan-800 p-2 rounded-full text-white font-bold">
+                <button class="bg-blue-500 p-2 rounded-full text-white font-bold">
                     <a href="user_create.php">
                         <div class="p-1 pr-2 flex w-full items-center mx-auto">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -29,7 +29,7 @@ include "../components/footer.php"; ?>
                     <div class="flex items-center justify-between mb-4 top-2">
                     </div>
                     <table class="leading-none text-center pb-2 w-full table-auto">
-                        <thead class="bg-cyan-600 text-xl font-bold text-white text-opacity-85 w-full h-full">
+                        <thead class="bg-cyan-800 text-xl font-bold text-white text-opacity-85 w-full h-full">
                             <th></th>
                             <th>Nome</th>
                             <th>Departamento</th>
