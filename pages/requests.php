@@ -22,7 +22,7 @@ $row = mysqli_fetch_assoc($result);
 <body class="font-inter">
     <div class="h-full w-[80%] relative overflow-hidden lg:ml-60 top-10">
         <div class="w-[95%] grid grid-cols-1 gap-4">
-            <div class="bg-white rounded-lg p-4 sm:p-6 xl:p-8">
+            <div class="rounded-lg p-4 sm:p-6 xl:p-8">
                 <span class="text-2xl sm:text-4xl leading-none font-bold text-gray-900 pb-4">Histórico de Pedidos</span>
                 <div class="bg-white rounded-lg shadow-lg">
                     <div>
