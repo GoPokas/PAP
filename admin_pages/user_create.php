@@ -27,11 +27,15 @@ include "../components/footer.php"; ?>
                         </div>
                     </section>
                     <section class="pb-4 mx-4 flex flex-row space-x-4">
-                        <div class="flex flex-col w-2/4">
+                        <div class="flex flex-col w-1/3">
                             <label for="name" class="font-semibold pl-2">Nome Completo: </label>
                             <input type="text" name="name" placeholder="Insira o nome..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                         </div>
-                        <div class="flex flex-col w-2/4">
+                        <div class="flex flex-col w-1/3">
+                            <label for="birthdate" class="font-semibold pl-2">Data de Nascimento: </label>
+                            <input type="date" name="birthdate" max="today" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                        </div>
+                        <div class="flex flex-col w-1/3">
                             <label for="email" class="font-semibold pl-2">E-mail: </label>
                             <input type="email" name="email" placeholder="Insira o e-mail..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                         </div>
@@ -46,10 +50,20 @@ include "../components/footer.php"; ?>
                                 <label for="postalCode" class="font-semibold pl-2">Código Postal: </label>
                                 <input type="text" name="postalCode" placeholder="Insira o código postal..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                             </div>
-                            <div class="flex flex-col w-1/2 mx-2">
+                            <div class="flex flex-col w-1/2 ml-2">
                                 <label for="district" class="font-semibold pl-2">Distrito: </label>
                                 <input type="text" name="district" placeholder="Insira o distrito..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                             </div>
+                        </div>
+                    </section>
+                    <section class="pb-4 ml-2 flex flex-row space-x-4">
+                        <div class="flex flex-col w-1/3 ml-2">
+                            <label for="gender" class="font-semibold pl-2">Gênero: </label>
+                            <select name="gender" id="gender" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                                <option value="0">Masculino</option>
+                                <option value="1">Feminino</option>
+                                <option value="2">Outro</option>
+                            </select>
                         </div>
                     </section>
                     <div class="text-right mr-4">

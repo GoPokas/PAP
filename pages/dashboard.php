@@ -24,12 +24,12 @@ $row = mysqli_fetch_assoc($result);
     <div class="h-full w-[80%] relative overflow-hidden ml-60 top-[3.75rem] align-middle">
         <span class="text-2xl sm:text-4xl text-gray-900 font-bold">
             <?php if (
-              $row["abreviaturaGenero"] == "M" ||
-              $row["abreviaturaGenero"] == "O"
+                $row["abreviaturaGenero"] == "M" ||
+                $row["abreviaturaGenero"] == "O"
             ) {
-              echo "Bem-vindo, ";
+                echo "Bem-vindo, ";
             } elseif ($row["abreviaturaGenero"] == "F") {
-              echo "Bem-vinda, ";
+                echo "Bem-vinda, ";
             } ?>
             <?php echo strtok($row["nomeFuncionario"], " "); ?>
         </span>
