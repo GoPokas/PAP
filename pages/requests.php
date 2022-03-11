@@ -20,11 +20,11 @@ $row = mysqli_fetch_assoc($result);
 </head>
 
 <body class="font-inter">
-    <div class="h-full w-[80%] relative overflow-hidden lg:ml-60 top-10">
+    <div class="h-full w-[80%] relative overflow-hidden lg:ml-60 top-14">
         <div class="w-[95%] grid grid-cols-1 gap-4">
             <div class="rounded-lg p-4 sm:p-6 xl:p-8">
                 <span class="text-2xl sm:text-4xl leading-none font-bold text-gray-900 pb-4">Histórico de Pedidos</span>
-                <div class="bg-white rounded-lg shadow-lg">
+                <div class="rounded-lg shadow-lg">
                     <div>
                         <table class="leading-none text-center pb-0 w-full gap-4 table-auto">
                             <thead class="bg-cyan-600 text-xl font-bold text-white text-opacity-85 w-full h-full">
