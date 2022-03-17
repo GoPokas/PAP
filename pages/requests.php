@@ -1,12 +1,26 @@
 <?php
 include "../components/footer.php";
 
-$sql = "SELECT * FROM funcionario
-        WHERE funcionario.id = '{$_SESSION["numFuncionario"]}'";
+
+if (isset($_GET['pagina'])) {
+    $pagina = $_GET['pagina'];
+} else {
+    $pagina = 1;
+}
+$limite_registos = 10;
+$offset = $limite_registos * $pagina - $limite_registos;
+
+$sql = "SELECT * FROM marcacao
+        INNER JOIN tiposmarcacao on marcacao.idTiposmarcacao = tiposmarcacao.id
+        INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
+        INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id 
+        WHERE marcacao.idFuncionario = '{$_SESSION["numFuncionario"]}'
+        ORDER BY marcacao.diapedidoMarcacao DESC LIMIT " . $offset . ", " . $limite_registos . ";";
 
 $result = mysqli_query($conn, $sql);
+$total_rows = mysqli_fetch_array($result)[0];
 
-$row = mysqli_fetch_assoc($result);
+$paginas_total = ceil($total_rows / $limite_registos);
 ?>
 
 <!DOCTYPE html>
@@ -28,31 +42,94 @@ $row = mysqli_fetch_assoc($result);
                     <div>
                         <table class="leading-none text-center pb-0 w-full gap-4 table-auto">
                             <thead class="bg-cyan-600 text-xl font-bold text-white text-opacity-85 w-full h-full">
-                                <th>Tipo</th>
-                                <th>Dias</th>
-                                <th>Início</th>
-                                <th>Estado</th>
-                                <th></th>
+                                <th class="w-40">Tipo</th>
+                                <th class="w-40">Quantidade Dias</th>
+                                <th class="w-40">Início</th>
+                                <th class="w-40">Dia Pedido</th>
+                                <th class="w-40">Estado</th>
+                                <th class="w-10"></th>
                             </thead>
                             <tbody class="">
-                                <tr class="odd:bg-white even:bg-gray-100 h-8">
-                                    <td class="">Férias</td>
-                                    <td class="">4 dias</td>
-                                    <td class="">Dentro de 4 dias</td>
-                                    <td class="">
-                                        <div class="bg-red-300 rounded-xl text-red-500 font-bold p-1">Recusado</div>
-                                    </td>
-                                    <td>
-                                        <button class="items-end opacity-70 hover:opacity-100">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
-                                            </svg>
-                                        </button>
-                                    </td>
-                                </tr>
+                                <?php
+                                while ($row = mysqli_fetch_assoc($result)) {
+                                ?>
+                                    <tr class="odd:bg-white even:bg-gray-100 h-9">
+                                        <td class=""><?php echo $row["nomeTiposmarcacao"]; ?></td>
+                                        <td class="">
+                                            <?php
+                                            $datestartformat = date('d/m/Y', strtotime($row["diainicioMarcacao"]));
+                                            $dateendformat = date('d/m/Y', strtotime($row["diafimMarcacao"]));
+                                            $daterequestformat = date('d/m/Y', strtotime($row["diapedidoMarcacao"]));
+                                            $datestart = new DateTime($row["diainicioMarcacao"]);
+                                            $dateend = new DateTime($row["diafimMarcacao"]);
+                                            $days = $datestart->diff($dateend);
+                                            if ($days->days == 1) {
+                                                echo $days->days . " Dia";
+                                            } else {
+                                                echo $days->days . " Dias";
+                                            }
+                                            ?>
+                                        </td>
+                                        <td class=""><?php echo $datestartformat; ?></td>
+                                        <td class=""><?php echo $daterequestformat; ?></td>
+                                        <td class="">
+                                            <?php
+                                            if ($row["idEstadomarcacao"] == 0) {
+                                            ?>
+                                                <div class="bg-yellow-300 rounded-xl text-yellow-600 font-bold p-1 w-72 mx-auto"><?php echo $row["nomeEstadomarcacao"]; ?>
+                                                </div>
+                                            <?php
+                                            } elseif ($row["idEstadomarcacao"] == 1) {
+                                            ?>
+                                                <div class="bg-green-300 rounded-xl text-green-500 font-bold p-1 w-72 mx-auto"><?php echo $row["nomeEstadomarcacao"]; ?>
+                                                </div>
+                                            <?php
+                                            } elseif ($row["idEstadomarcacao"] == 2) {
+                                            ?>
+                                                <div class="bg-red-300 rounded-xl text-red-500 font-bold p-1 w-72 mx-auto"><?php echo $row["nomeEstadomarcacao"]; ?>
+                                                </div>
+                                            <?php } ?>
+                                        </td>
+                                        <td>
+                                            <button class="items-end opacity-70 hover:opacity-100">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                                                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                <?php    }
+                                ?>
                             </tbody>
                         </table>
+                    </div>
+                </div>
+                <div class="flex mt-2 justify-end">
+                    <div class="<?php if ($pagina <= 1) {
+                                    echo 'disabled';
+                                } ?>">
+                        <a href="<?php if ($pagina <= 1) {
+                                        echo '#';
+                                    } else {
+                                        echo "?pagina=" . ($pagina - 1);
+                                    } ?>">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                            </svg></a>
+                    </div>
+                    <div class="font-semibold text-lg"><?php echo $pagina ?></div>
+                    <div class="<?php if ($pagina >= $paginas_total) {
+                                    echo 'disabled';
+                                } ?>">
+                        <a href="<?php if ($pagina >= $paginas_total) {
+                                        echo '#';
+                                    } else {
+                                        echo "?pagina=" . ($pagina + 1);
+                                    } ?>">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                            </svg></a>
                     </div>
                 </div>
             </div>

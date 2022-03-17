@@ -1,5 +1,19 @@
 <?php
-include "../components/footer.php"; ?>
+include "../components/footer.php";
+
+if (isset($_GET['pagina'])) {
+    $pagina = $_GET['pagina'];
+} else {
+    $pagina = 1;
+}
+$limite_registos = 10;
+$offset = $limite_registos * $pagina - $limite_registos;
+
+$total_rows = mysqli_fetch_array($result)[0];
+
+$paginas_total = ceil($total_rows / $limite_registos);
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,6 +23,7 @@ include "../components/footer.php"; ?>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../imgs/myIcon.ico" type="image/x-icon">
+    <!-- <link rel="stylesheet" href="../style.css"> -->
 </head>
 
 <body class="font-inter">
@@ -44,7 +59,7 @@ include "../components/footer.php"; ?>
                                     INNER JOIN funcionario_has_cargos ON funcionario.id = funcionario_has_cargos.funcionario_id
                                     INNER JOIN cargos ON funcionario_has_cargos.cargos_id = cargos.id
                                     INNER JOIN genero on funcionario.idGenero = genero.id
-                                    LIMIT 10";
+                                    ORDER BY funcionario.nomeFuncionario DESC LIMIT " . $offset . "," . $limite_registos . ";";
                             $result = mysqli_query($conn, $sql);
                             while ($row = mysqli_fetch_array($result)) { ?>
                                 <tr class="odd:bg-white even:bg-gray-100 h-8">
@@ -71,6 +86,33 @@ include "../components/footer.php"; ?>
                             ?>
                         </tbody>
                     </table>
+                </div>
+                <div class="flex mt-2 justify-end">
+                    <div class="<?php if ($pagina <= 1) {
+                                    echo 'disabled';
+                                } ?>">
+                        <a href="<?php if ($pagina <= 1) {
+                                        echo '#';
+                                    } else {
+                                        echo "?pagina=" . ($pagina - 1);
+                                    } ?>">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                            </svg></a>
+                    </div>
+                    <div class="font-semibold text-lg"><?php echo $pagina ?></div>
+                    <div class="<?php if ($pagina >= $paginas_total) {
+                                    echo 'disabled';
+                                } ?>">
+                        <a href="<?php if ($pagina >= $paginas_total) {
+                                        echo '#';
+                                    } else {
+                                        echo "?pagina=" . ($pagina + 1);
+                                    } ?>">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                            </svg></a>
+                    </div>
                 </div>
             </div>
         </div>

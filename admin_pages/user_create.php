@@ -91,19 +91,31 @@ if (isset($_POST['submit'])) {
                             <label for="gender" class="font-semibold pl-2">Gênero: </label>
                             <select name="gender" id="gender" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                                 <option style="display:none;"></option>
-                                <option value="0">Masculino</option>
-                                <option value="1">Feminino</option>
-                                <option value="2">Outro</option>
+                                <?php
+                                $gender = "SELECT * FROM genero";
+                                $gender = mysqli_query($conn, $gender);
+                                while ($gen = mysqli_fetch_assoc($gender)) {
+                                    echo "<option value='" . $gen['id'] . "'>" . $gen['nomeGenero'] . "</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="flex flex-col w-1/3 ml-2">
                             <label for="docid" class="font-semibold pl-2">Documento de Identificação: </label>
                             <select name="docid" id="docid" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
-                                <option style="display:none;"></option>
-                                <option value="0">Cartão de Cidadão</option>
-                                <option value="1">Cartão Militar</option>
-                                <option value="2">Passaporte</option>
+                                <?php
+                                $documents = "SELECT * FROM docidentificacao";
+                                $documents = mysqli_query($conn, $documents);
+                                while ($doc = mysqli_fetch_assoc($documents)) {
+                                    echo "<option value='" . $doc['id'] . "'>" . $doc['nomeDocidentificacao'] . "</option>";
+                                }
+                                ?>
                             </select>
+                        </div>
+                        <div class="flex flex-col w-1/3">
+                            <label for="" class="font-semibold pl-2">Upload de Documento: </label>
+                            <input type="file" name="doctype" id="doctype" class="w-[0.1px] h-[0.1px] opacity-0"></input>
+                            <label for="doctype" class="cursor-pointer py-1 px-2 text-white font-semibold bg-blue-500 hover:bg-blue-600 rounded ">Escolha o ficheiro...</label>
                         </div>
                     </section>
                     <section class="pb-4 ml-2 flex flex-row space-x-4">
@@ -111,18 +123,39 @@ if (isset($_POST['submit'])) {
                             <label for="position" class="font-semibold pl-2">Cargo: </label>
                             <select name="position" id="position" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                                 <option style="display:none;"></option>
-                                <option value="0">Masculino</option>
-                                <option value="1">Feminino</option>
-                                <option value="2">Outro</option>
+                                <?php
+                                $position = "SELECT * FROM cargos";
+                                $position = mysqli_query($conn, $position);
+                                while ($pos = mysqli_fetch_assoc($position)) {
+                                    echo "<option value='" . $pos['id'] . "'>" . $pos['nomeCargo'] . "</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                         <div class="flex flex-col w-1/3 ml-2">
                             <label for="department" class="font-semibold pl-2">Departamento: </label>
                             <select name="department" id="department" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                                 <option style="display:none;"></option>
-                                <option value="0">Masculino</option>
-                                <option value="1">Feminino</option>
-                                <option value="2">Outro</option>
+                                <?php
+                                $department = "SELECT * FROM departamento";
+                                $department = mysqli_query($conn, $department);
+                                while ($dep = mysqli_fetch_assoc($department)) {
+                                    echo "<option value='" . $dep['id'] . "'>" . $dep['nomeDepartamento'] . "</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="flex flex-col w-1/3 ml-2">
+                            <label for="department" class="font-semibold pl-2">Departamento: </label>
+                            <select name="department" id="department" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                                <option style="display:none;"></option>
+                                <?php
+                                $department = "SELECT * FROM departamento";
+                                $department = mysqli_query($conn, $department);
+                                while ($dep = mysqli_fetch_assoc($department)) {
+                                    echo "<option value='" . $dep['id'] . "'>" . $dep['nomeDepartamento'] . "</option>";
+                                }
+                                ?>
                             </select>
                         </div>
                     </section>
@@ -134,5 +167,5 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 
+    <script src="../js/imagepreview.js"></script>
 </body>
-<script src="../js/imagepreview.js"></script>
