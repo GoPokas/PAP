@@ -8,19 +8,21 @@ if (isset($_GET['pagina'])) {
     $pagina = 1;
 }
 $limite_registos = 10;
-$offset = $limite_registos * $pagina - $limite_registos;
+$offset = ($pagina - 1) * $limite_registos;
 
 $sql = "SELECT * FROM marcacao
         INNER JOIN tiposmarcacao on marcacao.idTiposmarcacao = tiposmarcacao.id
         INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
         INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id 
         WHERE marcacao.idFuncionario = '{$_SESSION["numFuncionario"]}'
-        ORDER BY marcacao.diapedidoMarcacao DESC LIMIT " . $offset . ", " . $limite_registos . ";";
+        ORDER BY marcacao.idEstadomarcacao LIMIT " . $offset . ", " . $limite_registos . ";";
 
 $result = mysqli_query($conn, $sql);
 $total_rows = mysqli_fetch_array($result)[0];
+var_dump($total_rows);
+$paginas_total = ceil($total_rows / ($limite_registos));
+var_dump($paginas_total);
 
-$paginas_total = ceil($total_rows / $limite_registos);
 ?>
 
 <!DOCTYPE html>
@@ -65,7 +67,7 @@ $paginas_total = ceil($total_rows / $limite_registos);
                                             $days = $datestart->diff($dateend);
                                             if ($days->days == 1) {
                                                 echo $days->days . " Dia";
-                                            } else {
+                                            } elseif ($days->days > 1 || $days->days == 0) {
                                                 echo $days->days . " Dias";
                                             }
                                             ?>
