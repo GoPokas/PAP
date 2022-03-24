@@ -45,7 +45,7 @@ if (isset($_POST['submit'])) {
             <div class="bg-white rounded-lg shadow-lg">
                 <div class="flex items-center justify-between mb-4 top-2">
                 </div>
-                <form class="space-y-2 flex flex-col" action="" method="post" enctype="multipart/form-data">
+                <form class="space-y-2 flex flex-col" action="" method="post" enctype="multipart/form-data" autocomplete="off">
                     <section class="pb-4 ml-2 flex flex-row space-x-4">
                         <div class="flex flex-col w-full">
                             <img src="../imgs/pfps/default-avatar.png" alt="Profile Picture" id="profileDisplay" onclick="triggerClick()" class="w-40 h-40 rounded-full shadow mx-auto hover:brightness-75 cursor-pointer">
@@ -103,6 +103,7 @@ if (isset($_POST['submit'])) {
                         <div class="flex flex-col w-1/3 ml-2">
                             <label for="docid" class="font-semibold pl-2">Documento de Identificação: </label>
                             <select name="docid" id="docid" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                                <option style="display:none;"></option>
                                 <?php
                                 $documents = "SELECT * FROM docidentificacao";
                                 $documents = mysqli_query($conn, $documents);
@@ -112,7 +113,7 @@ if (isset($_POST['submit'])) {
                                 ?>
                             </select>
                         </div>
-                        <div class="flex flex-col w-1/3">
+                        <div class="flex flex-col w-1/3 pr-4">
                             <label for="" class="font-semibold pl-2">Upload de Documento: </label>
                             <input type="file" name="doctype" id="doctype" class="w-[0.1px] h-[0.1px] opacity-0"></input>
                             <label for="doctype" class="cursor-pointer py-1 px-2 text-white font-semibold bg-blue-500 hover:bg-blue-600 rounded ">Escolha o ficheiro...</label>
@@ -145,7 +146,7 @@ if (isset($_POST['submit'])) {
                                 ?>
                             </select>
                         </div>
-                        <div class="flex flex-col w-1/3 ml-2">
+                        <div class="flex flex-col w-1/3 pr-4">
                             <label for="department" class="font-semibold pl-2">Departamento: </label>
                             <select name="department" id="department" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                                 <option style="display:none;"></option>
