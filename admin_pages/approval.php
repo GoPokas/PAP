@@ -10,7 +10,7 @@ if (isset($_GET['pagina'])) {
 $limite_registos = 10;
 $offset = ($pagina - 1) * $limite_registos;
 
-$sql = "SELECT * FROM marcacao
+$sql = "SELECT *, marcacao.id as id_marcacao from marcacao
         INNER JOIN tiposmarcacao on marcacao.idTiposmarcacao = tiposmarcacao.id
         INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
         INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id
@@ -56,7 +56,7 @@ var_dump($paginas_total);
                                 <?php
                                 while ($row = mysqli_fetch_assoc($result)) {
                                 ?>
-
+                                    <?php var_dump($row); ?>
                                     <tr class="odd:bg-white even:bg-gray-100 h-9">
                                         <td class="w-10"><img class="rounded-full shadow-2xl w-10 h-10 object-cover p-1" alt="Profile picture" src="../imgs/pfps/<?= $row["avatarFuncionario"] ?>"></td>
                                         <td class="font-bold"><?php echo $row["nomeFuncionario"]; ?></td>
@@ -81,13 +81,14 @@ var_dump($paginas_total);
 
                                         <td>
                                             <form method="POST">
-                                                <button type="submit" class="items-end opacity-70 hover:opacity-100" name="approve">
+                                                <?php echo $row['id'] ?>
+                                                <button type="submit" class="items-end opacity-70 hover:opacity-100" name="approve" value="<?php $row['id'] ?>">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="#00FF00">
                                                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                                                     </svg>
                                                 </button>
-                                                <button type="submit" class="items-end opacity-70 hover:opacity-100" name="disapprove">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="#FF0000">
+                                                <button type="submit" class="items-end opacity-70 hover:opacity-100" name="disapprove" value="<?php $row['id'] ?>">
+                                                    <svg xmlns=" http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="#FF0000">
                                                         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                                                     </svg>
                                                 </button>
@@ -97,10 +98,10 @@ var_dump($paginas_total);
 
                                     <?php
                                     if (isset($_POST['approve'])) {
-                                        $sql = "UPDATE marcacao SET idEstadomarcacao = 1 WHERE id = " . $row["id"];
+                                        $sql = "UPDATE marcacao SET idEstadomarcacao = 1 WHERE id = " . $_POST["approve"] . "";
+                                        var_dump($sql);
+                                        die;
                                         if (mysqli_query($conn, $sql)) {
-                                            var_dump($sql);
-                                            die;
                                             echo "<script>alert('Marcação aprovada com sucesso!');</script>";
                                             unset($_POST['approve']);
                                         } else {
@@ -109,7 +110,9 @@ var_dump($paginas_total);
                                         }
                                     }
                                     if (isset($_POST['disapprove'])) {
-                                        $sql = "UPDATE marcacao SET idEstadomarcacao = 2 WHERE id = " . $row["id"];
+                                        var_dump($sql);
+                                        die;
+                                        $sql = "UPDATE marcacao SET idEstadomarcacao = 2 WHERE id = " . $_POST["disapprove"] . "";
                                         if (mysqli_query($conn, $sql)) {
                                             echo "<script>alert('Marcação reprovada com sucesso!');</script>";
                                             unset($_POST['disapprove']);
@@ -157,5 +160,10 @@ var_dump($paginas_total);
     </div>
     </div>
 </body>
+<script>
+    $("button").click(function() {
+        var fired_button = $(this).val();
+    });
+</script>
 
 </html>
