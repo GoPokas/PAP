@@ -8,10 +8,6 @@ if (isset($_GET['pagina'])) {
 }
 $limite_registos = 10;
 $offset = $limite_registos * $pagina - $limite_registos;
-
-$total_rows = mysqli_fetch_array($result)[0];
-
-$paginas_total = ceil($total_rows / $limite_registos);
 ?>
 
 
@@ -23,7 +19,6 @@ $paginas_total = ceil($total_rows / $limite_registos);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../imgs/myIcon.ico" type="image/x-icon">
-    <!-- <link rel="stylesheet" href="../style.css"> -->
 </head>
 
 <body class="font-inter">
@@ -53,6 +48,9 @@ $paginas_total = ceil($total_rows / $limite_registos);
                         </thead>
                         <tbody>
                             <?php
+                            $total_rows = mysqli_fetch_array($result)[0];
+                            $paginas_total = ceil($total_rows / $limite_registos);
+
                             $sql = "SELECT * FROM funcionario_has_departamento 
                                     INNER JOIN funcionario ON funcionario_has_departamento.funcionario_id = funcionario.id 
                                     INNER JOIN departamento ON funcionario_has_departamento.departamento_id = departamento.id
