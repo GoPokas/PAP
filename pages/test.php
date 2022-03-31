@@ -1,7 +1,7 @@
 <?php
-require_once "../user/login_verify.php";
-require "../user/config.php";
-$sql = "SELECT * FROM user WHERE numFuncionario = '{$_SESSION["numFuncionario"]}'";
+include "../components/footer.php";
+
+$sql = "SELECT * FROM funcionario WHERE id = '{$_SESSION["numFuncionario"]}'";
 
 $result = mysqli_query($conn, $sql);
 
@@ -15,65 +15,69 @@ if (isset($_POST["submit"]) && isset($_FILES["my_image"])) {
   $error = $_FILES["my_image"]["error"];
 
   if ($error === 0) {
-    if ($img_size > 1000000) {
-      $em = "A sua imagem tem que ser mais pequena!";
-      // header("Location: test.php?error=$em");
+    if ($img_size > 10000000) {
     } else {
       $img_ex = pathinfo($img_name, PATHINFO_EXTENSION);
       $img_ex_lc = strtolower($img_ex);
 
       $allowed_exs = ["jpg", "jpeg", "png"];
-
       if (in_array($img_ex_lc, $allowed_exs)) {
         $new_img_name = "PFP-" . $_SESSION["numFuncionario"] . "." . $img_ex_lc;
-        if ($img_ex_lc = "jpg") {
+        if (
+          file_exists(
+            $target_dir . "PFP-" . $_SESSION["numFuncionario"] . "." . "jpg"
+          )
+        ) {
           unlink($target_dir . "PFP-" . $_SESSION["numFuncionario"] . ".jpg");
-        }
-        if ($img_ex_lc = "jpeg") {
+        } elseif (
+          file_exists(
+            $target_dir . "PFP-" . $_SESSION["numFuncionario"] . "." . "jpeg"
+          )
+        ) {
           unlink($target_dir . "PFP-" . $_SESSION["numFuncionario"] . ".jpeg");
-        }
-        if ($img_ex_lc = "png") {
+        } elseif (
+          file_exists(
+            $target_dir . "PFP-" . $_SESSION["numFuncionario"] . "." . "png"
+          )
+        ) {
           unlink($target_dir . "PFP-" . $_SESSION["numFuncionario"] . ".png");
         }
         $img_upload_path = $target_dir . $new_img_name;
-        move_uploaded_file($tmp_name, $img_upload_path);
-        if (!file_exists("../imgs/pfps" . $new_img_name)) {
-          // Insert into Database
-          $sql = "UPDATE funcionario SET avatarFuncionario = '$new_img_name' WHERE funcionario.id = '{$_SESSION["numFuncionario"]}'";
-          mysqli_query($conn, $sql);
-          header("Location: ../pages/perfil.php");
-        }
+        $finalimage = imagecreate(100, 100, $new_img_name);
+        imagepng($finalimage, $img_upload_path);
+        $sql = "UPDATE funcionario SET avatarFuncionario = '$new_img_name' WHERE idUser = '{$_SESSION["numFuncionario"]}'";
+        mysqli_query($conn, $sql);
+        header("Location: ../pages/perfil.php");
       }
     }
   }
 }
-include "../components/footer.php";
 ?>
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Image Upload Using PHP</title>
+  <title>Image Upload Using PHP</title>
 
 </head>
 
 <body>
-    <?php if (isset($_GET["error"])): ?>
-        <p><?php echo $_GET["error"]; ?></p>
+  <?php if (isset($_GET["error"])) : ?>
+    <p><?php echo $_GET["error"]; ?></p>
 
-    <?php endif; ?>
-    <form action="" method="post" enctype="multipart/form-data">
+  <?php endif; ?>
+  <form action="" method="post" enctype="multipart/form-data">
 
-        <input type="file" name="my_image">
+    <input type="file" name="my_image">
 
-        <input type="submit" name="submit" value="Upload">
+    <input type="submit" name="submit" value="Upload">
 
-    </form>
+  </form>
 </body>
 <script>
-    if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
-    }
+  if (window.history.replaceState) {
+    window.history.replaceState(null, null, window.location.href);
+  }
 </script>
 
 </html>

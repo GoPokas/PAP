@@ -1,16 +1,5 @@
 <?php
 include "../components/footer.php";
-
-$sql = "SELECT * FROM marcacao
-        INNER JOIN tiposmarcacao on marcacao.idTiposmarcacao = tiposmarcacao.id
-        INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
-        INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id
-        WHERE marcacao.idFuncionario = '{$_SESSION["numFuncionario"]}'
-        AND marcacao.idEstadomarcacao = 0";
-
-$resultrequests = mysqli_query($conn, $sql);
-
-$requests = mysqli_fetch_assoc($resultrequests);
 ?>
 
 <!DOCTYPE html>
@@ -27,27 +16,27 @@ $requests = mysqli_fetch_assoc($resultrequests);
     <div class="h-full w-[80%] relative overflow-hidden ml-60 top-[3.75rem] align-middle">
         <span class="text-2xl sm:text-4xl text-gray-900 font-bold">
             <?php
-            $sql = "SELECT * FROM funcionario
+            $employeesql = "SELECT * FROM funcionario
                     INNER JOIN genero on funcionario.idGenero = genero.id 
                     WHERE funcionario.id = '{$_SESSION["numFuncionario"]}'";
 
-            $result = mysqli_query($conn, $sql);
+            $resultemployee = mysqli_query($conn, $employeesql);
 
-            $row = mysqli_fetch_assoc($result);
+            $employee = mysqli_fetch_array($resultemployee);
 
             if (
-                $row["abreviaturaGenero"] == "M" ||
-                $row["abreviaturaGenero"] == "O"
+                $employee["abreviaturaGenero"] == "M" ||
+                $employee["abreviaturaGenero"] == "O"
             ) {
                 echo "Bem-vindo, ";
-            } elseif ($row["abreviaturaGenero"] == "F") {
+            } elseif ($employee["abreviaturaGenero"] == "F") {
                 echo "Bem-vinda, ";
             } ?>
-            <?php echo strtok($row["nomeFuncionario"], " "); ?>
+            <?php echo strtok($employee["nomeFuncionario"], " "); ?>
         </span>
         <div class="w-full flex flex-row mt-2 space-x-4">
             <div class="bg-white rounded-lg flex flex-col w-full">
-                <div class="bg-white rounded-lg shadow-lg">
+                <div class="bg-white rounded-lg shadow-lg h-[196px]">
                     <div class="flex items-center justify-between top-2">
                     </div>
                     <div class="p-2 flex bg-cyan-800">
@@ -65,7 +54,16 @@ $requests = mysqli_fetch_assoc($resultrequests);
                                     </thead>
                                     <tbody>
                                         <?php
-                                        while ($requests = mysqli_fetch_assoc($resultrequests)) {
+                                        $requestssql = "SELECT * FROM marcacao
+                                                INNER JOIN tiposmarcacao on marcacao.idTiposmarcacao = tiposmarcacao.id
+                                                INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
+                                                INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id
+                                                WHERE marcacao.idFuncionario = '{$_SESSION["numFuncionario"]}'
+                                                AND marcacao.idEstadomarcacao = 0 LIMIT 5";
+
+                                        $resultrequests = mysqli_query($conn, $requestssql);
+
+                                        while ($requests = mysqli_fetch_array($resultrequests)) {
                                         ?>
                                             <tr class="h-8 text-sm">
                                                 <td><?php echo $requests["nomeTiposmarcacao"]; ?></td>
@@ -85,22 +83,8 @@ $requests = mysqli_fetch_assoc($resultrequests);
                                                     ?>
                                                 </td>
                                                 <td>
-                                                    <?php
-                                                    if ($requests["idEstadomarcacao"] == 0) {
-                                                    ?>
-                                                        <div class="bg-yellow-300 rounded-xl text-yellow-600 font-bold p-1 w-40 mx-auto"><?php echo $requests["nomeEstadomarcacao"]; ?>
-                                                        </div>
-                                                    <?php
-                                                    } elseif ($requests["idEstadomarcacao"] == 1) {
-                                                    ?>
-                                                        <div class="bg-green-300 rounded-xl text-green-500 font-bold p-1 w-40 mx-auto"><?php echo $requests["nomeEstadomarcacao"]; ?>
-                                                        </div>
-                                                    <?php
-                                                    } elseif ($requests["idEstadomarcacao"] == 2) {
-                                                    ?>
-                                                        <div class="bg-red-300 rounded-xl text-red-500 font-bold p-1 w-40 mx-auto"><?php echo $requests["nomeEstadomarcacao"]; ?>
-                                                        </div>
-                                                    <?php } ?>
+                                                    <div class="bg-yellow-300 rounded-xl text-yellow-600 font-bold p-1 w-40 mx-auto"><?php echo $requests["nomeEstadomarcacao"]; ?>
+                                                    </div>
                                                 </td>
                                                 <td>
                                                     <button class="items-end opacity-70 hover:opacity-100">
@@ -123,20 +107,74 @@ $requests = mysqli_fetch_assoc($resultrequests);
                 </div>
             </div>
             <div class="bg-white rounded-lg flex flex-col w-full">
-                <div class="bg-white rounded-lg shadow-lg">
+                <div class="bg-white rounded-lg shadow-lg h-[196px]">
                     <div class="flex items-center justify-between top-2">
                     </div>
                     <div class="p-2 flex bg-cyan-800">
                         <span class="text-lg leading-none font-semibold text-white pb-0 items-center">Dias Gozados</span>
                     </div>
-                    <div class="p-3 flex items-end pb-1">
-                        <div class="w-[95%] grid grid-cols-1 gap-4">
+                    <div class="flex items-end pb-1">
+                        <div class="rounded-lg w-full">
+                            <div>
+                                <table class="leading-none text-center pb-0 w-full table-auto">
+                                    <thead class="text-lg font-bold text-opacity-85 w-full h-full">
+                                        <th class="w-40">Férias</th>
+                                        <th class="w-40">Ausências Médicas</th>
+                                        <th class="w-40">Outros</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="h-8 font-bold text-[100px]">
+                                            <td>
+                                                <?php
+
+                                                $dayssql = "SELECT * FROM dias
+                                                WHERE idFuncionario = '{$_SESSION["numFuncionario"]}'";
+
+                                                $resultsdays = mysqli_query($conn, $dayssql);
+
+                                                while ($days = mysqli_fetch_array($resultsdays)) {
+                                                    $daysfreeleaves = $days["diasferiasdisponiveis"];
+                                                    $daysusedleaves = $days["diasferiasgozados"];
+                                                    $daysusedmedical = $days["diasmedicasgozados"];
+                                                    $daysusedother = $days["diasoutrosgozados"];
+                                                    if ($daysusedleaves <= 18 && $daysusedleaves >= 7) {
+                                                ?>
+                                                        <div class="rounded-xl text-yellow-500"><?php echo $daysusedleaves; ?>
+                                                        </div>
+                                                    <?php
+                                                    } elseif ($daysusedleaves > 18) {
+                                                    ?>
+                                                        <div class="rounded-xl text-red-600"><?php echo $daysusedleaves; ?>
+                                                        </div>
+                                                    <?php
+                                                    } elseif ($daysusedleaves < 7 && $daysusedleaves >= 0) {
+                                                    ?>
+                                                        <div class="rounded-xl text-green-400"><?php echo $daysusedleaves; ?>
+                                                        </div>
+                                                <?php   }
+                                                } ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                echo $daysusedmedical;
+                                                ?>
+                                            </td>
+                                            <td>
+                                                <?php
+                                                echo $daysusedother;
+                                                ?>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold">
+                                                Dias disponíveis: <?php echo $daysfreeleaves; ?>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
 </body>
 
 </html>

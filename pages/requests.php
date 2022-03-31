@@ -15,14 +15,20 @@ $sql = "SELECT * FROM marcacao
         INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
         INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id 
         WHERE marcacao.idFuncionario = '{$_SESSION["numFuncionario"]}'
-        ORDER BY marcacao.idEstadomarcacao LIMIT " . $offset . ", " . $limite_registos . ";";
+        ORDER BY marcacao.idEstadomarcacao";
 
 $result = mysqli_query($conn, $sql);
 $total_rows = mysqli_fetch_array($result)[0];
-var_dump($total_rows);
 $paginas_total = ceil($total_rows / ($limite_registos));
-var_dump($paginas_total);
 
+$sql = "SELECT * FROM marcacao
+        INNER JOIN tiposmarcacao on marcacao.idTiposmarcacao = tiposmarcacao.id
+        INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
+        INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id 
+        WHERE marcacao.idFuncionario = '{$_SESSION["numFuncionario"]}'
+        ORDER BY marcacao.idEstadomarcacao LIMIT " . $offset . ", " . $limite_registos . ";";
+
+$resultrequests = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -36,12 +42,12 @@ var_dump($paginas_total);
 </head>
 
 <body class="font-inter">
-    <div class="h-full w-[80%] relative overflow-hidden lg:ml-60 top-14">
+    <div class="h-full w-[88%] relative overflow-hidden lg:ml-60 top-14">
         <div class="w-[95%] grid grid-cols-1 gap-4">
             <div class="rounded-lg p-4 sm:p-6 xl:p-8">
                 <span class="text-2xl sm:text-4xl leading-none font-bold text-gray-900 pb-4">Histórico de Pedidos</span>
                 <div class="rounded-lg shadow-lg">
-                    <div>
+                    <div class="h-[450px]">
                         <table class="leading-none text-center pb-0 w-full gap-4 table-auto">
                             <thead class="bg-cyan-600 text-xl font-bold text-white text-opacity-85 w-full h-full">
                                 <th class="w-40">Tipo</th>
@@ -53,7 +59,7 @@ var_dump($paginas_total);
                             </thead>
                             <tbody class="">
                                 <?php
-                                while ($row = mysqli_fetch_assoc($result)) {
+                                while ($row = mysqli_fetch_array($resultrequests)) {
                                 ?>
                                     <tr class="odd:bg-white even:bg-gray-100 h-9">
                                         <td class=""><?php echo $row["nomeTiposmarcacao"]; ?></td>

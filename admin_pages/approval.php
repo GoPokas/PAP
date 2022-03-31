@@ -14,12 +14,20 @@ $sql = "SELECT *, marcacao.id as id_marcacao from marcacao
         INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
         INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id
         WHERE marcacao.idEstadomarcacao = 0
-        ORDER BY marcacao.idEstadomarcacao LIMIT " . $offset . ", " . $limite_registos . ";";
+        ORDER BY marcacao.idEstadomarcacao";
 
-$result = mysqli_query($conn, $sql);
-$row = mysqli_fetch_assoc($result);
-$total_rows = mysqli_fetch_array($result)[0];
+$resultrequests = mysqli_query($conn, $sql);
+$total_rows = mysqli_num_rows($resultrequests);
 $paginas_total = ceil($total_rows / ($limite_registos));
+
+$sql = "SELECT *, marcacao.id as id_marcacao from marcacao
+        INNER JOIN tiposmarcacao on marcacao.idTiposmarcacao = tiposmarcacao.id
+        INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
+        INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id
+        WHERE marcacao.idEstadomarcacao = 0
+        ORDER BY marcacao.idEstadomarcacao LIMIT " . $offset . "," . $limite_registos . ";";
+
+$resultrequests = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -33,12 +41,12 @@ $paginas_total = ceil($total_rows / ($limite_registos));
 </head>
 
 <body class="font-inter">
-    <div class="h-full w-[80%] relative overflow-hidden lg:ml-60 top-14">
+    <div class="h-full w-[88%] relative overflow-hidden ml-60 top-14">
         <div class="w-[95%] grid grid-cols-1 gap-4">
-            <div class="rounded-lg p-4 sm:p-6 xl:p-8">
+            <div class="rounded-lg p-4">
                 <span class="text-2xl sm:text-4xl leading-none font-bold text-gray-900">Aprovações</span>
                 <div class="rounded-lg shadow-lg pt-2">
-                    <div>
+                    <div class="h-[450px]">
                         <table class="leading-none text-center pb-0 w-full gap-4 table-auto">
                             <thead class="bg-cyan-600 text-xl font-bold text-white text-opacity-85 w-full h-full">
                                 <th class="w-10"></th>
@@ -51,8 +59,8 @@ $paginas_total = ceil($total_rows / ($limite_registos));
                             </thead>
                             <tbody class="">
                                 <?php
-                                if (count($row) > 0) {
-                                    do {
+                                if (count($row) >= 0) {
+                                    while ($row = mysqli_fetch_array($resultrequests)) {
                                 ?>
                                         <tr class="odd:bg-white even:bg-gray-100 h-9">
                                             <td class="w-10"><img class="rounded-full shadow-2xl w-10 h-10 object-cover p-1" alt="Profile picture" src="../imgs/pfps/<?= $row["avatarFuncionario"] ?>"></td>
@@ -77,13 +85,13 @@ $paginas_total = ceil($total_rows / ($limite_registos));
                                             <td class=""><?php echo $daterequestformat; ?></td>
 
                                             <td>
-                                                <form action="approve.php" method="POST" id="my_form">
-                                                    <button type="submit" class="items-end opacity-70 hover:opacity-100" name="approve" value="<?php echo $row['id_marcacao']; ?>">
+                                                <form action="../functions/approve.php" method="POST" id="my_form" class="my-auto">
+                                                    <button type="submit" class="justify-center opacity-70 hover:opacity-100" name="approve" value="<?php echo $row['id_marcacao']; ?>">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="#00FF00">
                                                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                                                         </svg>
                                                     </button>
-                                                    <button type="submit" class="items-end opacity-70 hover:opacity-100" name="disapprove" value="<?php echo $row['id_marcacao']; ?>">
+                                                    <button type="submit" class="justify-center opacity-70 hover:opacity-100" name="disapprove" value="<?php echo $row['id_marcacao']; ?>">
                                                         <svg xmlns=" http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="#FF0000">
                                                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                                                         </svg>
@@ -91,31 +99,7 @@ $paginas_total = ceil($total_rows / ($limite_registos));
                                                 </form>
                                             </td>
                                         </tr>
-
-                                        <?php
-                                        if (isset($_POST['approve'])) {
-                                            $sql = "UPDATE marcacao SET idEstadomarcacao = 1 WHERE id = " . $_POST["approve"] . "";
-                                            if (mysqli_query($conn, $sql)) {
-                                                unset($_POST['approve']);
-                                                echo "<script>alert('Marcação aprovada com sucesso!');</script>";
-                                                header("Location: approval.php");
-                                            } else {
-                                                unset($_POST['approve']);
-                                                echo "<script>alert('Erro ao aprovar marcação!');</script>";
-                                            }
-                                        }
-                                        if (isset($_POST['disapprove'])) {
-                                            $sql = "UPDATE marcacao SET idEstadomarcacao = 2 WHERE id = " . $_POST["disapprove"] . "";
-                                            if (mysqli_query($conn, $sql)) {
-                                                unset($_POST['disapprove']);
-                                                echo "<script>alert('Marcação reprovada com sucesso!');</script>";
-                                            } else {
-                                                unset($_POST['disapprove']);
-                                                echo "<script>alert('Erro ao reprovar marcação!');</script>";
-                                            }
-                                        }
-                                        ?>
-                                <?php    } while ($row = mysqli_fetch_assoc($result));
+                                <?php    }
                                 } else {
                                     echo "<tr><td colspan='7' class='text-center text-xl font-bold p-4'>Nenhuma marcação pendente.</td></tr>";
                                 }
