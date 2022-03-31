@@ -28,6 +28,14 @@ $sql = "SELECT *, marcacao.id as id_marcacao from marcacao
         ORDER BY marcacao.idEstadomarcacao LIMIT " . $offset . "," . $limite_registos . ";";
 
 $resultrequests = mysqli_query($conn, $sql);
+
+if (isset($_SESSION['flash_message'])) {
+    $message = $_SESSION['flash_message'];
+    unset($_SESSION['flash_message']);
+    echo $message;
+} else {
+    echo 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww';
+}
 ?>
 
 <!DOCTYPE html>

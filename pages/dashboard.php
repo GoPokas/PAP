@@ -59,7 +59,7 @@ include "../components/footer.php";
                                                 INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
                                                 INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id
                                                 WHERE marcacao.idFuncionario = '{$_SESSION["numFuncionario"]}'
-                                                AND marcacao.idEstadomarcacao = 0 LIMIT 5";
+                                                AND marcacao.idEstadomarcacao = 0 LIMIT 4";
 
                                         $resultrequests = mysqli_query($conn, $requestssql);
 
