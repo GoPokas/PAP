@@ -10,7 +10,7 @@ if (isset($_GET['pagina'])) {
 $limite_registos = 10;
 $offset = ($pagina - 1) * $limite_registos;
 
-$sql = "SELECT *, marcacao.id as id_marcacao from marcacao
+$sql = "SELECT * FROM marcacao
         INNER JOIN tiposmarcacao on marcacao.idTiposmarcacao = tiposmarcacao.id
         INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
         INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id 
@@ -21,7 +21,7 @@ $result = mysqli_query($conn, $sql);
 $total_rows = mysqli_fetch_array($result)[0];
 $paginas_total = ceil($total_rows / ($limite_registos));
 
-$sql = "SELECT *, marcacao.id as id_marcacao from marcacao
+$sql = "SELECT * FROM marcacao
         INNER JOIN tiposmarcacao on marcacao.idTiposmarcacao = tiposmarcacao.id
         INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
         INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id 
@@ -51,11 +51,6 @@ $resultrequests = mysqli_query($conn, $sql);
                         <table class="leading-none text-center pb-0 w-full gap-4 table-auto">
                             <thead class="bg-cyan-600 text-xl font-bold text-white text-opacity-85 w-full h-full">
                                 <th class="w-40">Tipo</th>
-                                <th class="w-40">Quantidade Dias</th>
-                                <th class="w-40">Início Ausência</th>
-                                <th class="w-40">Data Pedido</th>
-                                <th class="w-40">Estado</th>
-                                <th class="w-10"></th>
                             </thead>
                             <tbody class="">
                                 <?php
@@ -81,30 +76,14 @@ $resultrequests = mysqli_query($conn, $sql);
                                         <td class=""><?php echo $datestartformat; ?></td>
                                         <td class=""><?php echo $daterequestformat; ?></td>
                                         <td class="">
-                                            <?php
-                                            if ($row["idEstadomarcacao"] == 0) {
-                                            ?>
-                                                <div class="bg-yellow-300 rounded-xl text-yellow-600 font-bold p-1 w-72 mx-auto"><?php echo $row["nomeEstadomarcacao"]; ?>
-                                                </div>
-                                            <?php
-                                            } elseif ($row["idEstadomarcacao"] == 1) {
-                                            ?>
-                                                <div class="bg-green-300 rounded-xl text-green-500 font-bold p-1 w-72 mx-auto"><?php echo $row["nomeEstadomarcacao"]; ?>
-                                                </div>
-                                            <?php
-                                            } elseif ($row["idEstadomarcacao"] == 2) {
-                                            ?>
-                                                <div class="bg-red-300 rounded-xl text-red-500 font-bold p-1 w-72 mx-auto"><?php echo $row["nomeEstadomarcacao"]; ?>
-                                                </div>
-                                            <?php } ?>
                                         </td>
                                         <td>
-                                            <a class="items-end opacity-70 hover:opacity-100" href="requests_details.php?request=<?php echo $row['id_marcacao']; ?>">
-                                                <svg xmlns=" http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                            <button class="items-end opacity-70 hover:opacity-100">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                                     <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
                                                     <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
                                                 </svg>
-                                            </a>
+                                            </button>
                                         </td>
                                     </tr>
                                 <?php    }

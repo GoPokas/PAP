@@ -29,13 +29,15 @@ $sql = "SELECT *, marcacao.id as id_marcacao from marcacao
 
 $resultrequests = mysqli_query($conn, $sql);
 
-if (isset($_SESSION['flash_message'])) {
-    $message = $_SESSION['flash_message'];
-    unset($_SESSION['flash_message']);
-    echo $message;
-} else {
-    echo 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww';
-}
+// if (isset($_SESSION['flash_message'])) {
+//     $message = $_SESSION['flash_message'];
+//     unset($_SESSION['flash_message']);
+//     echo $message;
+// } else {
+//     echo 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww';
+// }
+//
+
 ?>
 
 <!DOCTYPE html>
@@ -145,8 +147,9 @@ if (isset($_SESSION['flash_message'])) {
                 </div>
             </div>
         </div>
-    </div>
+        <?php $msg->display(); ?>
     </div>
 </body>
 
 </html>
+<script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
