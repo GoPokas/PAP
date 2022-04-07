@@ -1,34 +1,19 @@
 <?php
 include "../components/footer.php";
 
+$request_id = $_GET['request'];
 
-if (isset($_GET['pagina'])) {
-    $pagina = $_GET['pagina'];
-} else {
-    $pagina = 1;
-}
-$limite_registos = 10;
-$offset = ($pagina - 1) * $limite_registos;
+$requestsql = "SELECT * FROM marcacao WHERE id = '$request_id'";
+$requestresult = mysqli_query($conn, $requestsql);
+$requestrow = mysqli_fetch_array($requestresult);
 
-$sql = "SELECT * FROM marcacao
-        INNER JOIN tiposmarcacao on marcacao.idTiposmarcacao = tiposmarcacao.id
-        INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
-        INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id 
-        WHERE marcacao.idFuncionario = '{$_SESSION["numFuncionario"]}'
-        ORDER BY marcacao.idEstadomarcacao";
+$datestartformat = date('d/m/Y', strtotime($requestrow["diainicioMarcacao"]));
+$dateendformat = date('d/m/Y', strtotime($requestrow["diafimMarcacao"]));
+$daterequestformat = date('d/m/Y', strtotime($requestrow["diapedidoMarcacao"]));
+$datestart = new DateTime($requestrow["diainicioMarcacao"]);
+$dateend = new DateTime($requestrow["diafimMarcacao"]);
+$days = $datestart->diff($dateend);
 
-$result = mysqli_query($conn, $sql);
-$total_rows = mysqli_fetch_array($result)[0];
-$paginas_total = ceil($total_rows / ($limite_registos));
-
-$sql = "SELECT * FROM marcacao
-        INNER JOIN tiposmarcacao on marcacao.idTiposmarcacao = tiposmarcacao.id
-        INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
-        INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id 
-        WHERE marcacao.idFuncionario = '{$_SESSION["numFuncionario"]}'
-        ORDER BY marcacao.idEstadomarcacao LIMIT " . $offset . ", " . $limite_registos . ";";
-
-$resultrequests = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -45,83 +30,93 @@ $resultrequests = mysqli_query($conn, $sql);
     <div class="h-full w-[88%] relative overflow-hidden lg:ml-60 top-14">
         <div class="w-[95%] grid grid-cols-1 gap-4">
             <div class="rounded-lg p-4 sm:p-6 xl:p-8">
-                <span class="text-2xl sm:text-4xl leading-none font-bold text-gray-900 pb-4">Histórico de Pedidos</span>
+                <span class="text-2xl sm:text-4xl leading-none font-bold text-gray-900 pb-4">Detalhes do pedido</span>
                 <div class="rounded-lg shadow-lg">
                     <div class="h-[450px]">
-                        <table class="leading-none text-center pb-0 w-full gap-4 table-auto">
-                            <thead class="bg-cyan-600 text-xl font-bold text-white text-opacity-85 w-full h-full">
-                                <th class="w-40">Tipo</th>
-                            </thead>
-                            <tbody class="">
-                                <?php
-                                while ($row = mysqli_fetch_array($resultrequests)) {
-                                ?>
-                                    <tr class="odd:bg-white even:bg-gray-100 h-9">
-                                        <td class=""><?php echo $row["nomeTiposmarcacao"]; ?></td>
-                                        <td class="">
-                                            <?php
-                                            $datestartformat = date('d/m/Y', strtotime($row["diainicioMarcacao"]));
-                                            $dateendformat = date('d/m/Y', strtotime($row["diafimMarcacao"]));
-                                            $daterequestformat = date('d/m/Y', strtotime($row["diapedidoMarcacao"]));
-                                            $datestart = new DateTime($row["diainicioMarcacao"]);
-                                            $dateend = new DateTime($row["diafimMarcacao"]);
-                                            $days = $datestart->diff($dateend);
-                                            if ($days->days == 1) {
-                                                echo $days->days . " Dia";
-                                            } elseif ($days->days > 1 || $days->days == 0) {
-                                                echo $days->days . " Dias";
-                                            }
-                                            ?>
-                                        </td>
-                                        <td class=""><?php echo $datestartformat; ?></td>
-                                        <td class=""><?php echo $daterequestformat; ?></td>
-                                        <td class="">
-                                        </td>
-                                        <td>
-                                            <button class="items-end opacity-70 hover:opacity-100">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
-                                                    <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
-                                                </svg>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                <?php    }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="flex mt-2 justify-end">
-                    <div class="<?php if ($pagina <= 1) {
-                                    echo 'disabled';
-                                } ?>">
-                        <a href="<?php if ($pagina <= 1) {
-                                        echo '#';
-                                    } else {
-                                        echo "?pagina=" . ($pagina - 1);
-                                    } ?>">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
-                            </svg></a>
-                    </div>
-                    <div class="font-semibold text-lg"><?php echo $pagina ?></div>
-                    <div class="<?php if ($pagina >= $paginas_total) {
-                                    echo 'disabled';
-                                } ?>">
-                        <a href="<?php if ($pagina >= $paginas_total) {
-                                        echo '#';
-                                    } else {
-                                        echo "?pagina=" . ($pagina + 1);
-                                    } ?>">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
-                            </svg></a>
+                        <section class="pb-4 mx-4 flex flex-row space-x-4">
+                            <div class="flex flex-col w-1/4">
+                                <label for="id" class="font-semibold pl-2">ID do Pedido: </label>
+                                <input type="text" name="id" disabled value="<?php echo $requestrow['id']; ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                            </div>
+                            <div class="flex flex-col w-1/4">
+                                <label for="days" class="font-semibold pl-2">Quantidade de dias: </label>
+                                <input type="text" name="days" disabled value="<?php if ($days->days == 1) {
+                                                                                    echo $days->days . " Dia";
+                                                                                } elseif ($days->days > 1 || $days->days == 0) {
+                                                                                    echo $days->days . " Dias";
+                                                                                }
+                                                                                ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                            </div>
+                            <div class="flex flex-col w-1/4">
+                                <label for="datestart" class="font-semibold pl-2">Data de início da ausência: </label>
+                                <input type="text" name="datestart" disabled value="<?php echo $datestartformat; ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                            </div>
+                            <div class="flex flex-col w-1/4">
+                                <label for="dateend" class="font-semibold pl-2">Data de início da ausência: </label>
+                                <input type="text" name="dateend" disabled value="<?php echo $dateendformat; ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none" />
+                                <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+                                <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+                                <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+                                <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+                            </div>
+                        </section>
+                        <section class="pb-4 mx-4 flex flex-row space-x-4">
+                            <div class="flex flex-col w-1/3">
+                                <label for="address" class="font-semibold">Morada: </label>
+                                <input type="text" name="address" placeholder="Insira a morada..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                            </div>
+                            <div class="flex flex-col w-1/3">
+                                <label for="postalcode" class="font-semibold">Código Postal: </label>
+                                <input type="text" name="postalcode" placeholder="Insira o código postal..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                            </div>
+                            <div class="flex flex-col w-1/3">
+                                <label for="district" class="font-semibold">Distrito: </label>
+                                <input type="text" name="district" placeholder="Insira o distrito..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                            </div>
+                        </section>
+                        <section class="pb-4 ml-2 flex flex-row space-x-4">
+                            <div class="flex flex-col w-1/3 ml-2">
+                                <label for="gender" class="font-semibold pl-2">Gênero: </label>
+                                <select name="gender" id="gender" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                                    <option style="display:none;"></option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col w-1/3 ml-2">
+                                <label for="docid" class="font-semibold pl-2">Documento de Identificação: </label>
+                                <select name="docid" id="docid" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                                    <option style="display:none;"></option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col w-1/3 pr-4">
+                                <label for="" class="font-semibold pl-2">Upload de Documento: </label>
+                                <input type="file" name="doctype" id="doctype" class="w-[0.1px] h-[0.1px] opacity-0"></input>
+                                <label for="doctype" class="cursor-pointer py-1 px-2 text-white font-semibold bg-blue-500 hover:bg-blue-600 rounded ">Escolha o ficheiro...</label>
+                            </div>
+                        </section>
+                        <section class="pb-4 ml-2 flex flex-row space-x-4">
+                            <div class="flex flex-col w-1/3 ml-2">
+                                <label for="position" class="font-semibold pl-2">Cargo: </label>
+                                <select name="position" id="position" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                                    <option style="display:none;"></option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col w-1/3 ml-2">
+                                <label for="department" class="font-semibold pl-2">Departamento: </label>
+                                <select name="department" id="department" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                                    <option style="display:none;"></option>
+                                </select>
+                            </div>
+                            <div class="flex flex-col w-1/3 pr-4">
+                                <label for="department" class="font-semibold pl-2">Departamento: </label>
+                                <select name="department" id="department" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                                    <option style="display:none;"></option>
+                                </select>
+                            </div>
+                        </section>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </body>
 

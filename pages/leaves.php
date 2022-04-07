@@ -32,7 +32,7 @@ $daysusedother = $days["diasoutrosgozados"];
             <div class="bg-white rounded-lg shadow-lg">
                 <div class="flex items-center justify-between mb-4 top-2">
                 </div>
-                <form class="space-y-2 flex flex-col" action="" method="post" enctype="multipart/form-data">
+                <form class="space-y-2 flex flex-col" action="../functions/leaverequest.php" method="post" enctype="multipart/form-data" autocomplete="off">
                     <section class="pb-4 m-2 flex flex-row space-x-4">
                         <div class="flex flex-col w-1/2">
                             <label for="leavetype" class="font-semibold pl-2">Tipo de marcação:</label>
@@ -66,6 +66,7 @@ $daysusedother = $days["diasoutrosgozados"];
                                     });
                                     $('input[name="requestdate"]').on('apply.daterangepicker', function(ev, picker) {
                                         $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+
                                     });
 
                                     $('input[name="requestdate"]').on('cancel.daterangepicker', function(ev, picker) {
@@ -84,10 +85,12 @@ $daysusedother = $days["diasoutrosgozados"];
                     </div>
                 </form>
             </div>
+            <?php $msg->display(); ?>
         </div>
     </div>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </body>

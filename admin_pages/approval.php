@@ -29,15 +29,6 @@ $sql = "SELECT *, marcacao.id as id_marcacao from marcacao
 
 $resultrequests = mysqli_query($conn, $sql);
 
-// if (isset($_SESSION['flash_message'])) {
-//     $message = $_SESSION['flash_message'];
-//     unset($_SESSION['flash_message']);
-//     echo $message;
-// } else {
-//     echo 'wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww';
-// }
-//
-
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +60,7 @@ $resultrequests = mysqli_query($conn, $sql);
                             </thead>
                             <tbody class="">
                                 <?php
-                                if (count($row) >= 0) {
+                                if ($total_rows > 0) {
                                     while ($row = mysqli_fetch_array($resultrequests)) {
                                 ?>
                                         <tr class="odd:bg-white even:bg-gray-100 h-9">

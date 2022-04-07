@@ -50,10 +50,10 @@ class FlashMessages
     protected $stickyCssClass = 'sticky';
     protected $msgCssClass = '';
     protected $cssClassMap = [
-        self::INFO    => 'w-[1000px] flex p-4 mb-4 bg-blue-100 border-t-4 border-blue-500 ml-3 text-lg font-semibold',
-        self::SUCCESS => 'w-[1000px] flex p-4 mb-4 bg-green-100 border-t-4 border-green-500 ml-3 text-lg font-semibold',
-        self::WARNING => 'w-[1000px] flex p-4 mb-4 bg-yellow-100 border-t-4 border-yellow-500 ml-3 text-lg font-semibold',
-        self::ERROR   => 'w-[1000px] flex p-4 mb-4 bg-red-100 border-t-4 border-red-500 ml-3 text-lg font-semibold',
+        self::INFO    => 'w-[92%] flex p-4 mb-4 bg-blue-100 border-t-4 border-blue-500 ml-3 text-lg font-semibold',
+        self::SUCCESS => 'w-[92%] flex p-4 mb-4 bg-green-100 border-t-4 border-green-500 ml-3 text-lg font-semibold',
+        self::WARNING => 'w-[92%] flex p-4 mb-4 bg-yellow-100 border-t-4 border-yellow-500 ml-3 text-lg font-semibold',
+        self::ERROR   => 'w-[92%] flex p-4 mb-4 bg-red-100 border-t-4 border-red-500 ml-3 text-lg font-semibold',
     ];
 
     // Where to redirect the user after a message is queued
