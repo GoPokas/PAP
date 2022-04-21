@@ -5,7 +5,7 @@ include "config.php";
 $numFuncionario = mysqli_real_escape_string($conn, $_POST["numFuncionario"]);
 $password = mysqli_real_escape_string($conn, $_POST["password"]);
 
-$query = "SELECT * FROM user WHERE numFuncionario = '{$numFuncionario}' and password = hash('sha256','{$password}')";
+$query = "SELECT * FROM user WHERE numFuncionario = '{$numFuncionario}' and password = md5('{$password}')";
 
 $result = mysqli_query($conn, $query);
 
