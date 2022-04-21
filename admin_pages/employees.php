@@ -1,16 +1,3 @@
-<?php
-include "../components/footer.php";
-
-if (isset($_GET['pagina'])) {
-    $pagina = $_GET['pagina'];
-} else {
-    $pagina = 1;
-}
-$limite_registos = 10;
-$offset = $limite_registos * $pagina - $limite_registos;
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +5,18 @@ $offset = $limite_registos * $pagina - $limite_registos;
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?php
+    include "../components/footer.php";
+
+    if (isset($_GET['pagina'])) {
+        $pagina = $_GET['pagina'];
+    } else {
+        $pagina = 1;
+    }
+    $limite_registos = 10;
+    $offset = $limite_registos * $pagina - $limite_registos;
+    ?>
+
     <link rel="shortcut icon" href="../imgs/myIcon.ico" type="image/x-icon">
 </head>
 
@@ -26,7 +25,7 @@ $offset = $limite_registos * $pagina - $limite_registos;
         <div class="w-[95%] grid grid-cols-1 gap-4">
             <div class="rounded-lg p-4 sm:p-6 xl:p-8">
                 <span class="text-2xl sm:text-4xl leading-none font-bold text-gray-900 pb-1 pr-3">Lista de funcionários</span>
-                <button class="bg-blue-500 p-2 rounded-full text-white font-bold">
+                <button class="bg-blue-500 p-2 mb-2 rounded-full text-white font-bold h-12">
                     <a href="user_create.php">
                         <div class="p-1 pr-2 flex w-full items-center mx-auto uppercase">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -36,8 +35,6 @@ $offset = $limite_registos * $pagina - $limite_registos;
                     </a>
                 </button>
                 <div class="bg-white rounded-lg shadow-lg h-[450px]">
-                    <div class="flex items-center justify-between mb-4 top-2">
-                    </div>
                     <table class="leading-none text-center pb-0 w-full table-auto">
                         <thead class="bg-cyan-600 text-xl font-bold text-white text-opacity-85 w-full h-full">
                             <th></th>
