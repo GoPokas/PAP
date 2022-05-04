@@ -24,13 +24,16 @@ $row = mysqli_fetch_assoc($result);
                 <span class="font-semibold"><?php echo $row["nomeFuncionario"]; ?> </span>
                 <div class="group inline-block float-none p-4">
                     <button id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation" type="button" class="z-50">
-                        <img class="rounded-full shadow-2xl w-10 h-10 object-cover" alt="Profile picture" src="../imgs/pfps/<?= $row["avatarFuncionario"] ?>">
+                        <img class="rounded-full w-10 h-10 object-cover" alt="Profile picture" src="../imgs/pfps/<?= $row["avatarFuncionario"] ?>">
                     </button>
 
                     <!-- Dropdown menu -->
                     <div id="dropdownInformation" class="hidden z-10 w-50 text-base list-none bg-white rounded divide-y divide-gray-100 shadow">
-                        <div class="py-3 px-4 text-gray-900">
+                        <div class="py-1 px-4 text-gray-900">
                             <span class="block text-sm font-semibold"><?php echo $row["emailFuncionario"]; ?></span>
+                        </div>
+                        <div class="py-1 px-4">
+                            <span class="block text-sm font-semibold">Nº Funcionário: <?php echo $_SESSION["numFuncionario"]; ?></span>
                         </div>
                         <ul class="py-1" aria-labelledby="dropdownInformationButton">
                             <li>

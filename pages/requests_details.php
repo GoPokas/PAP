@@ -40,7 +40,7 @@ $days = $datestart->diff($dateend);
                         <section class="pb-4 mx-4 flex flex-row space-x-4">
                             <div class="flex flex-col w-1/4">
                                 <label for="id" class="font-semibold pl-2">ID do Pedido: </label>
-                                <input type="text" name="id" disabled value="<?php echo $requestrow['id']; ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none text-slate-500">
+                                <input type="text" name="id" disabled value="<?php echo $request_id; ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none text-slate-500">
                             </div>
                             <div class="flex flex-col w-1/4">
                                 <label for="days" class="font-semibold pl-2">Quantidade de dias: </label>
@@ -66,17 +66,17 @@ $days = $datestart->diff($dateend);
                                 <input type="text" name="state" disabled value="<?php echo $requestrow["nomeEstadomarcacao"]; ?>" class="<?php
                                                                                                                                             if ($requestrow["idEstadomarcacao"] == 0) {
                                                                                                                                             ?>
-                                                                                                                                        bg-yellow-300 text-yellow-600 font-bold border rounded-lg py-1 px-2 focus:outline-none
+                                                                                                                                        bg-yellow-300 text-yellow-600 font-bold rounded-lg py-1 px-2 focus:outline-none
 
                                                                                                                                         <?php
                                                                                                                                             } elseif ($requestrow["idEstadomarcacao"] == 1) {
                                                                                                                                         ?>
-                                                                                                                                        bg-green-300 text-green-500 font-bold border rounded-lg py-1 px-2 focus:outline-none
+                                                                                                                                        bg-green-300 text-green-500 font-bold rounded-lg py-1 px-2 focus:outline-none
 
                                                                                                                                         <?php
                                                                                                                                             } elseif ($requestrow["idEstadomarcacao"] == 2) {
                                                                                                                                         ?>
-                                                                                                                                        bg-red-300 text-red-500 font-bold border rounded-lg py-1 px-2 focus:outline-none
+                                                                                                                                        bg-red-300 text-red-500 font-bold rounded-lg py-1 px-2 focus:outline-none
 
                                 <?php } ?>">
                             </div>
