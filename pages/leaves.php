@@ -1,17 +1,7 @@
 <?php
 include "../components/footer.php";
 
-$dayssql = "SELECT * FROM dias
-            WHERE idFuncionario = '{$_SESSION["numFuncionario"]}'";
-
-$resultsdays = mysqli_query($conn, $dayssql);
-
-$days = mysqli_fetch_array($resultsdays);
-$daysfreeleaves = $days["diasferiasdisponiveis"];
-$daysusedleaves = $days["diasferiasgozados"];
-$daysusedmedical = $days["diasmedicasgozados"];
-$daysusedother = $days["diasoutrosgozados"];
-
+$id = $_SESSION["numFuncionario"];
 ?>
 
 <!DOCTYPE html>
@@ -60,13 +50,9 @@ $daysusedother = $days["diasoutrosgozados"];
                                         locale: {
                                             cancelLabel: 'Cancel'
                                         },
-                                        "maxSpan": {
-                                            "days": <?php echo $daysfreeleaves; ?>
-                                        },
                                     });
                                     $('input[name="requestdate"]').on('apply.daterangepicker', function(ev, picker) {
-                                        $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
-
+                                        $(this).val(picker.startDate.format('YYYY/MM/DD') + ' - ' + picker.endDate.format('YYYY/MM/DD'));
                                     });
 
                                     $('input[name="requestdate"]').on('cancel.daterangepicker', function(ev, picker) {
@@ -81,16 +67,46 @@ $daysusedother = $days["diasoutrosgozados"];
                         <textarea name="obs" id="obs" class="resize-none w-full h-32 border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none"></textarea>
                     </section>
                     <div class="text-right mr-4">
-                        <button type="submit" name="submit" class="p-2 border border-blue-500 bg-blue-500 text-white rounded-lg py-3 font-semibold uppercase hover:border-blue-700 hover:bg-blue-700 active:border-blue-900 active:bg-blue-900">criar pedido</button>
+                        <input type="button" id="submit" value="Submeter Pedido" class="p-2 border border-blue-500 bg-blue-500 text-white rounded-lg py-3 font-semibold uppercase hover:border-blue-700 hover:bg-blue-700 active:border-blue-900 active:bg-blue-900">
                     </div>
                 </form>
             </div>
             <?php $msg->display(); ?>
         </div>
     </div>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script src="https://unpkg.com/flowbite@1.4.1/dist/flowbite.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 </body>
+
+
+<script>
+    $(document).ready(function() {
+        $('#submit').click(function() {
+            var requestdateuncut = $('input[name="requestdate"]').val();
+            var requestdate = requestdateuncut.split(" - ");
+            var leavetype = $('#leavetype').val();
+            var obs = $('#obs').val();
+            var id = <?php echo $id; ?>;
+            $.ajax({
+                type: "POST",
+                url: "../functions/createleave.php",
+                data: {
+                    id: id,
+                    startingdate: requestdate[0],
+                    endingdate: requestdate[1],
+                    leavetype: leavetype,
+                    obs: obs
+                },
+                cache: false,
+                success: function(data) {
+                    alert(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr);
+                }
+            });
+        })
+    });
+</script>

@@ -29,19 +29,15 @@ $row = mysqli_fetch_assoc($result);
     <div class="h-full w-[85%] relative ml-60 top-[3rem]">
         <div class="w-[95%] gap-4">
             <div class="w-[12.5rem] float-left">
-                <img class="rounded-full h-[12.5rem] w-[12.5rem] shadow object-cover" alt="Profile picture" src="../imgs/pfps/<?= $row[
-                  "avatarFuncionario"
-                ] ?>">
+                <img class="rounded-full h-[12.5rem] w-[12.5rem] shadow object-cover" alt="Profile picture" src="../imgs/pfps/<?= $row["avatarFuncionario"] ?>">
                 <div class="top-2 py-1 text-center">
                     <span class="font-bold text-2xl"><?php
-                    $exp = explode(" ", $row["nomeFuncionario"]);
-                    echo current($exp) . " " . end($exp);
-                    ?>
+                                                        $exp = explode(" ", $row["nomeFuncionario"]);
+                                                        echo current($exp) . " " . end($exp);
+                                                        ?>
                     </span>
-                    <span class="text-lg font-semibold"><?php echo $row[
-                      "nomeCargo"
-                    ]; ?>
-                    em <?php echo $row["nomeDepartamento"]; ?>
+                    <span class="text-lg font-semibold"><?php echo $row["nomeCargo"]; ?>
+                        em <?php echo $row["nomeDepartamento"]; ?>
                     </span>
                 </div>
             </div>

@@ -67,7 +67,7 @@ $offset = $limite_registos * $pagina - $limite_registos;
                                     INNER JOIN funcionario_has_cargos ON funcionario.id = funcionario_has_cargos.funcionario_id
                                     INNER JOIN cargos ON funcionario_has_cargos.cargos_id = cargos.id
                                     INNER JOIN genero on funcionario.idGenero = genero.id
-                                    ORDER BY funcionario.nomeFuncionario DESC LIMIT " . $offset . "," . $limite_registos . ";";
+                                    ORDER BY funcionario.nomeFuncionario DESC";
                             $result = mysqli_query($conn, $sql);
 
                             while ($row = mysqli_fetch_array($result)) { ?>

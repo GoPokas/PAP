@@ -5,26 +5,6 @@ $sql = "SELECT * FROM funcionario";
 $result = mysqli_query($conn, $sql);
 $count = mysqli_fetch_assoc($result);
 
-if (isset($_POST['submit'])) {
-    $name = $_POST['name'];
-    $password = $_POST['password'];
-    $email = $_POST['email'];
-    $birthdate = $_POST['birthdate'];
-    $address = $_POST['address'];
-    $postalcode = $_POST['postalcode'];
-    $district = $_POST['district'];
-    $gender = $_POST['gender'];
-    $docid = $_POST['docid'];
-    $position = $_POST['position'];
-    $department = $_POST['department'];
-
-    $employee = "INSERT INTO funcionario(nomeFuncionario, moradaFuncionario, dataNascimentoFuncionario, emailFuncionario, idCodigoPostal, idDocIdentificacao, idGenero)
-                 VALUES ('$name', '$address', '$birthdate', '$email', 1, 1, 1)";
-
-    mysqli_query($conn, $employee);
-    header("Location: ../pages/dashboard.php");
-} else {
-}
 ?>
 
 <!DOCTYPE html>
@@ -45,29 +25,33 @@ if (isset($_POST['submit'])) {
             <div class="bg-white rounded-lg shadow-lg">
                 <div class="flex items-center justify-between mb-4 top-2">
                 </div>
-                <form class="space-y-2 flex flex-col" action="" method="post" enctype="multipart/form-data" autocomplete="off">
+                <form class="space-y-2 flex flex-col" enctype="multipart/form-data" autocomplete="off">
                     <section class="pb-4 ml-2 flex flex-row space-x-4">
                         <div class="flex flex-col w-full">
                             <img src="../imgs/pfps/default-avatar.png" alt="Profile Picture" id="profileDisplay" onclick="triggerClick()" class="w-40 h-40 rounded-full shadow mx-auto hover:brightness-75 cursor-pointer">
-                            <input type="file" name="profilePicture" onchange="displayImage(this)" id="profilePicture" class="hidden"></input>
+                            <input type="file" id="profilePicture" name="profilePicture" onchange="displayImage(this)" id="profilePicture" class="hidden"></input>
                         </div>
                     </section>
                     <section class="pb-4 mx-4 flex flex-row space-x-4">
-                        <div class="flex flex-col w-1/4">
+                        <div class="flex flex-col w-1/5">
+                            <label for="id" class="font-semibold pl-2">Nº Funcionario: </label>
+                            <input type="text" id="id" name="id" placeholder="Insira o Nº Funcionario..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                        </div>
+                        <div class="flex flex-col w-1/5">
                             <label for="name" class="font-semibold pl-2">Nome Completo: </label>
-                            <input type="text" name="name" placeholder="Insira o nome..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                            <input type="text" id="name" name="name" placeholder="Insira o nome..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                         </div>
-                        <div class="flex flex-col w-1/4">
+                        <div class="flex flex-col w-1/5">
                             <label for="password" class="font-semibold pl-2">Password: </label>
-                            <input type="password" name="password" placeholder="Insira a password..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                            <input type="password" id="password" name="password" placeholder="Insira a password..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                         </div>
-                        <div class="flex flex-col w-1/4">
+                        <div class="flex flex-col w-1/5">
                             <label for="email" class="font-semibold pl-2">E-mail: </label>
-                            <input type="email" name="email" placeholder="Insira o e-mail..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                            <input type="email" id="email" name="email" placeholder="Insira o e-mail..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                         </div>
-                        <div class="flex flex-col w-1/4">
+                        <div class="flex flex-col w-1/5">
                             <label for="birthdate" class="font-semibold pl-2">Data de Nascimento: </label>
-                            <input type="text" name="birthdate" value="" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none" />
+                            <input type="text" id="birthdate" name="birthdate" value="" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none" />
                             <script type="text/javascript">
                                 $(function() {
                                     $('input[name="birthdate"]').daterangepicker({
@@ -82,7 +66,7 @@ if (isset($_POST['submit'])) {
                                     });
 
                                     $('input[name="birthdate"]').on('apply.daterangepicker', function(ev, picker) {
-                                        $(this).val(picker.startDate.format('DD/MM/YYYY'));
+                                        $(this).val(picker.startDate.format('YYYY/MM/DD'));
                                     });
 
                                     $('input[name="birthdate"]').on('cancel.daterangepicker', function(ev, picker) {
@@ -99,23 +83,23 @@ if (isset($_POST['submit'])) {
                     <section class="pb-4 mx-4 flex flex-row space-x-4">
                         <div class="flex flex-col w-3/6">
                             <label for="address" class="font-semibold pl-2">Morada: </label>
-                            <input type="text" name="address" placeholder="Insira a morada..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                            <input type="text" id="address" name="address" placeholder="Insira a morada..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                         </div>
                         <div class="w-1/2 flex flex-row">
                             <div class="flex flex-col w-1/2 mr-2">
                                 <label for="postalcode" class="font-semibold pl-2">Código Postal: </label>
-                                <input type="text" name="postalcode" placeholder="Insira o código postal..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                                <input type="text" id="postalcode" name="postalcode" placeholder="Insira o código postal..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                             </div>
                             <div class="flex flex-col w-1/2 ml-2">
                                 <label for="district" class="font-semibold pl-2">Distrito: </label>
-                                <input type="text" name="district" placeholder="Insira o distrito..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                                <input type="text" id="district" name="district" placeholder="Insira o distrito..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                             </div>
                         </div>
                     </section>
                     <section class="pb-4 ml-2 flex flex-row space-x-4">
                         <div class="flex flex-col w-1/3 ml-2">
                             <label for="gender" class="font-semibold pl-2">Gênero: </label>
-                            <select name="gender" id="gender" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                            <select name="gender" id="gender" id="gender" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                                 <option style="display:none;"></option>
                                 <?php
                                 $gender = "SELECT * FROM genero";
@@ -128,7 +112,7 @@ if (isset($_POST['submit'])) {
                         </div>
                         <div class="flex flex-col w-1/3 ml-2">
                             <label for="docid" class="font-semibold pl-2">Documento de Identificação: </label>
-                            <select name="docid" id="docid" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                            <select name="docid" id="docid" id="docid" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                                 <option style="display:none;"></option>
                                 <?php
                                 $documents = "SELECT * FROM docidentificacao";
@@ -141,40 +125,27 @@ if (isset($_POST['submit'])) {
                         </div>
                         <div class="flex flex-col w-1/3 pr-4">
                             <label for="" class="font-semibold pl-2">Upload de Documento: </label>
-                            <input type="file" name="doctype" id="doctype" class="w-[0.1px] h-[0.1px] opacity-0"></input>
+                            <input type="file" id="doctype" name="doctype" id="doctype" class="w-[0.1px] h-[0.1px] opacity-0"></input>
                             <label for="doctype" class="cursor-pointer py-1 px-2 text-white font-semibold bg-blue-500 hover:bg-blue-600 rounded ">Escolha o ficheiro...</label>
                         </div>
                     </section>
                     <section class="pb-4 ml-2 flex flex-row space-x-4">
-                        <div class="flex flex-col w-1/3 ml-2">
-                            <label for="position" class="font-semibold pl-2">Cargo: </label>
-                            <select name="position" id="position" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                        <div class="flex flex-col w-1/2 ml-2">
+                            <label for="position" class="font-semibold pl-2">Posição: </label>
+                            <select onfocus='this.size=6;' onblur='this.size=1;' onchange='this.size=1;' this.blur(); name="position" id="position" id="position" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                                 <option style="display:none;"></option>
                                 <?php
                                 $position = "SELECT * FROM cargos";
                                 $position = mysqli_query($conn, $position);
-                                while ($pos = mysqli_fetch_assoc($position)) {
-                                    echo "<option value='" . $pos['id'] . "'>" . $pos['nomeCargo'] . "</option>";
+                                while ($dep = mysqli_fetch_assoc($position)) {
+                                    echo "<option value='" . $dep['id'] . "'>" . $dep['nomeCargo'] . "</option>";
                                 }
                                 ?>
                             </select>
                         </div>
-                        <div class="flex flex-col w-1/3 ml-2">
+                        <div class="flex flex-col w-1/2 ml-2">
                             <label for="department" class="font-semibold pl-2">Departamento: </label>
-                            <select name="department" id="department" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
-                                <option style="display:none;"></option>
-                                <?php
-                                $department = "SELECT * FROM departamento";
-                                $department = mysqli_query($conn, $department);
-                                while ($dep = mysqli_fetch_assoc($department)) {
-                                    echo "<option value='" . $dep['id'] . "'>" . $dep['nomeDepartamento'] . "</option>";
-                                }
-                                ?>
-                            </select>
-                        </div>
-                        <div class="flex flex-col w-1/3 pr-4">
-                            <label for="department" class="font-semibold pl-2">Departamento: </label>
-                            <select name="department" id="department" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                            <select name="department" id="department" id="department" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                                 <option style="display:none;"></option>
                                 <?php
                                 $department = "SELECT * FROM departamento";
@@ -187,7 +158,7 @@ if (isset($_POST['submit'])) {
                         </div>
                     </section>
                     <div class="text-right mr-4">
-                        <button type="submit" name="submit" class="p-2 border border-blue-500 bg-blue-500 text-white rounded-lg py-3 font-semibold uppercase hover:border-blue-700 hover:bg-blue-700 active:border-blue-900 active:bg-blue-900">criar funcionário</button>
+                        <input type="button" id="submit" value="Criar Funcionário" class="p-2 border border-blue-500 bg-blue-500 text-white rounded-lg py-3 font-semibold uppercase hover:border-blue-700 hover:bg-blue-700 active:border-blue-900 active:bg-blue-900">
                     </div>
                 </form>
             </div>
@@ -196,3 +167,48 @@ if (isset($_POST['submit'])) {
 
     <script src="../js/imagepreview.js"></script>
 </body>
+
+<script>
+    $(document).ready(function() {
+        $('#submit').click(function() {
+            var id = $('#id').val();
+            var name = $('#name').val();
+            var password = $('#password').val();
+            var email = $('#email').val();
+            var birthdate = $('#birthdate').val();
+            var address = $('#address').val();
+            var postalcode = $('#postalcode').val();
+            var district = $('#district').val();
+            var gender = $('#gender').val();
+            var docid = $('#docid').val();
+            var position = $('#position').val();
+            var department = $('#department').val();
+            alert(position);
+            $.ajax({
+                type: "POST",
+                url: "../functions/createemployee.php",
+                data: {
+                    id: id,
+                    name: name,
+                    password: password,
+                    email: email,
+                    birthdate: birthdate,
+                    address: address,
+                    postalcode: postalcode,
+                    district: district,
+                    gender: gender,
+                    docid: docid,
+                    position: position,
+                    department: department
+                },
+                cache: false,
+                success: function(data) {
+                    alert(data);
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr);
+                }
+            });
+        })
+    });
+</script>
