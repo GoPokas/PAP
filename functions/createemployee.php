@@ -1,5 +1,6 @@
 <?php
 require "../user/config.php";
+require "../components/footer.php";
 
 $id = mysqli_real_escape_string($conn, $_POST["id"]);
 $name = mysqli_real_escape_string($conn, $_POST['name']);
@@ -22,8 +23,7 @@ if (
     && mysqli_query($conn, "INSERT INTO funcionario_has_cargos(funcionario_id, cargos_id) VALUES ('$id', '$position')")
     && mysqli_query($conn, "INSERT INTO user(numFuncionario, password) VALUES ('$id', md5($password))")
 ) {
-    echo "Records added successfully.";
-    header("Refresh:0; url=../pages/dashboard.php");
+    $msg->success('Funcionário adicionado com sucesso!');
 } else {
-    echo "ERROR: Could not execute sql: " . mysqli_error($conn);
+    $msg->error('Erro ao adicionar o funcionário!');
 }

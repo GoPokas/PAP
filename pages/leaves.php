@@ -101,7 +101,7 @@ $id = $_SESSION["numFuncionario"];
                 },
                 cache: false,
                 success: function(data) {
-                    alert(data);
+                    <?php $msg->display(); ?>
                 },
                 error: function(xhr, status, error) {
                     console.error(xhr);

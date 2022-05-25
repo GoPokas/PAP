@@ -1,5 +1,6 @@
 <?php
 require "../user/config.php";
+require "../components/footer.php";
 
 $id = mysqli_real_escape_string($conn, $_POST["id"]);
 $startingdate = mysqli_real_escape_string($conn, $_POST["startingdate"]);
@@ -8,8 +9,7 @@ $leavetype = mysqli_real_escape_string($conn, $_POST["leavetype"]);
 $obs = mysqli_real_escape_string($conn, $_POST['obs']);
 
 if (mysqli_query($conn, "INSERT INTO marcacao(diainicioMarcacao, diafimMarcacao, diapedidoMarcacao, obs, idTiposmarcacao, idFuncionario, idEstadomarcacao) VALUES('$startingdate', '$endingdate', CURRENT_TIMESTAMP, '$obs', '$leavetype', '$id', '0')")) {
-    echo "Records added successfully.";
-    header("Refresh:0; url=../pages/dashboard.php");
+    $msg->success('Marcação enviada com sucesso!');
 } else {
-    echo "ERROR: Could not execute sql: " . mysqli_error($conn);
+    $msg->error('Erro ao enviar a marcação!');
 }

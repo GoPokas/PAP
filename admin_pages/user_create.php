@@ -183,7 +183,6 @@ $count = mysqli_fetch_assoc($result);
             var docid = $('#docid').val();
             var position = $('#position').val();
             var department = $('#department').val();
-            alert(position);
             $.ajax({
                 type: "POST",
                 url: "../functions/createemployee.php",
@@ -209,6 +208,7 @@ $count = mysqli_fetch_assoc($result);
                     console.error(xhr);
                 }
             });
+            window.location.href = "../admin_pages/employees.php";
         })
     });
 </script>
