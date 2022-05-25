@@ -49,11 +49,11 @@ $days = $datestart->diff($dateend);
                                                                                 } elseif ($days->days > 1 || $days->days == 0) {
                                                                                     echo $days->days . " Dias";
                                                                                 }
-                                                                                ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                                                                                ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none text-slate-500">
                             </div>
                             <div class="flex flex-col w-1/4">
                                 <label for="datestart" class="font-semibold pl-2">Data de início da ausência: </label>
-                                <input type="text" name="datestart" disabled value="<?php echo $datestartformat; ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                                <input type="text" name="datestart" disabled value="<?php echo $datestartformat; ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none text-slate-500">
                             </div>
                             <div class="flex flex-col w-1/4">
                                 <label for="dateend" class="font-semibold pl-2">Data de início da ausência: </label>
