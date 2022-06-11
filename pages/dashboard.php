@@ -18,7 +18,7 @@ include "../components/footer.php";
             <?php
             $employeesql = "SELECT * FROM funcionario
                     INNER JOIN genero on funcionario.idGenero = genero.id 
-                    WHERE funcionario.id = '{$_SESSION["numFuncionario"]}'";
+                    WHERE funcionario.idFuncionario = '{$_SESSION["numFuncionario"]}'";
 
             $resultemployee = mysqli_query($conn, $employeesql);
 
@@ -57,7 +57,7 @@ include "../components/footer.php";
                                         $requestssql = "SELECT * FROM marcacao
                                                 INNER JOIN tiposmarcacao on marcacao.idTiposmarcacao = tiposmarcacao.id
                                                 INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
-                                                INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id
+                                                INNER JOIN funcionario on marcacao.idFuncionario = funcionario.idFuncionario
                                                 WHERE marcacao.idFuncionario = '{$_SESSION["numFuncionario"]}'
                                                 AND marcacao.idEstadomarcacao = 0 LIMIT 4";
 

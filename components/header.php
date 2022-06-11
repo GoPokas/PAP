@@ -1,7 +1,7 @@
 <?php
 require "../user/config.php";
 
-$sql = "SELECT * FROM funcionario WHERE id = '{$_SESSION["numFuncionario"]}'";
+$sql = "SELECT * FROM funcionario WHERE idFuncionario = '{$_SESSION["numFuncionario"]}'";
 
 $result = mysqli_query($conn, $sql);
 
@@ -34,7 +34,7 @@ $row = mysqli_fetch_assoc($result);
                         </div>
                         <ul class="py-1" aria-labelledby="dropdownInformationButton">
                             <li>
-                                <a href="../pages/perfil.php" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 ">Perfil</a>
+                                <a href="../pages/perfil.php?id=<?php echo $_SESSION["numFuncionario"] ?>" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 ">Perfil</a>
                             </li>
                             <div>
                                 <a href="../user/logout.php" class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 ">Logout</a>

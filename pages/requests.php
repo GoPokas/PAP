@@ -13,7 +13,7 @@ $offset = ($pagina - 1) * $limite_registos;
 $sql = "SELECT *, marcacao.id as id_marcacao from marcacao
         INNER JOIN tiposmarcacao on marcacao.idTiposmarcacao = tiposmarcacao.id
         INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
-        INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id 
+        INNER JOIN funcionario on marcacao.idFuncionario = funcionario.idFuncionario
         WHERE marcacao.idFuncionario = '{$_SESSION["numFuncionario"]}'
         ORDER BY marcacao.idEstadomarcacao";
 
@@ -24,7 +24,7 @@ $paginas_total = ceil($total_rows / ($limite_registos));
 $sql = "SELECT *, marcacao.id as id_marcacao from marcacao
         INNER JOIN tiposmarcacao on marcacao.idTiposmarcacao = tiposmarcacao.id
         INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
-        INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id 
+        INNER JOIN funcionario on marcacao.idFuncionario = funcionario.idFuncionario
         WHERE marcacao.idFuncionario = '{$_SESSION["numFuncionario"]}'
         ORDER BY marcacao.idEstadomarcacao LIMIT " . $offset . ", " . $limite_registos . ";";
 
@@ -61,7 +61,7 @@ $resultrequests = mysqli_query($conn, $sql);
                                 <?php
                                 while ($row = mysqli_fetch_array($resultrequests)) {
                                 ?>
-                                    <tr class="odd:bg-white even:bg-gray-100 h-9">
+                                    <tr class="odd:bg-white even:bg-gray-100 h-[41.98px]">
                                         <td class=""><?php echo $row["nomeTiposmarcacao"]; ?></td>
                                         <td class="">
                                             <?php

@@ -4,7 +4,7 @@ include "../components/footer.php";
 $request_id = $_GET['request'];
 
 $requestsql = "SELECT * FROM marcacao
-                INNER JOIN funcionario ON marcacao.idFuncionario = funcionario.id
+                INNER JOIN funcionario ON marcacao.idFuncionario = funcionario.idFuncionario
                 INNER JOIN tiposmarcacao ON marcacao.idTiposmarcacao = tiposmarcacao.id
                 INNER JOIN estadomarcacao ON marcacao.idEstadomarcacao = estadomarcacao.id
                 WHERE marcacao.id = '$request_id'";
@@ -40,7 +40,7 @@ $days = $datestart->diff($dateend);
                         <section class="pb-4 mx-4 flex flex-row space-x-4">
                             <div class="flex flex-col w-1/4">
                                 <label for="id" class="font-semibold pl-2">ID do Pedido: </label>
-                                <input type="text" name="id" disabled value="<?php echo $request_id; ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                                <input type="text" name="id" disabled value="<?php echo $request_id; ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none font-bold">
                             </div>
                             <div class="flex flex-col w-1/4">
                                 <label for="days" class="font-semibold pl-2">Quantidade de dias: </label>
@@ -56,8 +56,8 @@ $days = $datestart->diff($dateend);
                                 <input type="text" name="datestart" disabled value="<?php echo $datestartformat; ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none text-slate-500">
                             </div>
                             <div class="flex flex-col w-1/4">
-                                <label for="dateend" class="font-semibold pl-2">Data de início da ausência: </label>
-                                <input type="text" name="dateend" disabled value="<?php echo $dateendformat; ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none" />
+                                <label for="dateend" class="font-semibold pl-2">Data de fim da ausência: </label>
+                                <input type="text" name="dateend" disabled value="<?php echo $dateendformat; ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none text-slate-500" />
                             </div>
                         </section>
                         <section class="pb-4 mx-4 flex flex-row space-x-4">

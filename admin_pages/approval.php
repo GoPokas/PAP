@@ -12,7 +12,7 @@ $offset = ($pagina - 1) * $limite_registos;
 $sql = "SELECT *, marcacao.id as id_marcacao from marcacao
         INNER JOIN tiposmarcacao on marcacao.idTiposmarcacao = tiposmarcacao.id
         INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
-        INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id
+        INNER JOIN funcionario on marcacao.idFuncionario = funcionario.idFuncionario
         WHERE marcacao.idEstadomarcacao = 0
         ORDER BY marcacao.idEstadomarcacao";
 
@@ -23,7 +23,7 @@ $paginas_total = ceil($total_rows / ($limite_registos));
 $sql = "SELECT *, marcacao.id as id_marcacao from marcacao
         INNER JOIN tiposmarcacao on marcacao.idTiposmarcacao = tiposmarcacao.id
         INNER JOIN estadomarcacao on marcacao.idEstadomarcacao = estadomarcacao.id
-        INNER JOIN funcionario on marcacao.idFuncionario = funcionario.id
+        INNER JOIN funcionario on marcacao.idFuncionario = funcionario.idFuncionario
         WHERE marcacao.idEstadomarcacao = 0
         ORDER BY marcacao.idEstadomarcacao LIMIT " . $offset . "," . $limite_registos . ";";
 
