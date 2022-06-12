@@ -55,7 +55,12 @@ if ($_REQUEST["id"] == $_SESSION["numFuncionario"] || $row["group"] == "1") {
                 <span class="pl-10 text-2xl sm:text-4xl leading-none font-bold text-gray-900 pb-4 ">Perfil</span>
                 <div class="bg-white rounded-lg pl-4 float-left h-[90%] w-[80%]">
                     <div class="bg-white rounded-lg shadow-lg right-10">
-
+                        <label for="email" class="font-semibold pl-2">Email: </label>
+                        <input type="text" name="email" disabled value="<?php echo $row["emailFuncionario"]; ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none text-slate-500 m-2 w-96">
+                        <label for="email" class="font-semibold pl-2">Data de Nascimento: </label>
+                        <input type="text" name="birthdate" disabled value="<?php echo $row["dataNascimentoFuncionario"]; ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none text-slate-500 m-2 w-80">
+                        <label for="email" class="font-semibold pl-2">Morada: </label>
+                        <input type="text" name="email" disabled value="<?php echo $row["moradaFuncionario"]; ?>" class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none text-slate-500 m-2 w-80">
                     </div>
                 </div>
             </div>
