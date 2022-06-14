@@ -18,7 +18,7 @@
         <div class="bg-gray-100 flex flex-col w-80 border border-gray-100 rounded-lg px-8 py-10 shadow">
             <div class="text-white">
             </div>
-            <form class="flex flex-col space-y-8" action="user/login.php" method="POST">
+            <form class="flex flex-col space-y-8" action="user/login.php" method="POST" autocomplete="off">
                 <img src="imgs/logo.png" alt="Company Logo" class="w-20 h-20 mx-auto">
                 <input type="text" name="numFuncionario" autofocus placeholder="Nº Funcionário" required class="border rounded-lg py-3 px-3 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-300 focus:bg-gray-300 focus:outline-none">
                 <input type="password" name="password" placeholder="Password" required class="border rounded-lg py-3 px-3 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-300 focus:bg-gray-300 focus:outline-none">

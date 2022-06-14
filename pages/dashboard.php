@@ -118,55 +118,28 @@ include "../components/footer.php";
                             <div>
                                 <table class="leading-none text-center pb-0 w-full table-auto">
                                     <thead class="text-lg font-bold text-opacity-85 w-full h-full">
-                                        <th class="w-40">Férias</th>
-                                        <th class="w-40">Ausências Médicas</th>
-                                        <th class="w-40">Outros</th>
+                                        <th class="w-40">Total</th>
                                     </thead>
                                     <tbody>
                                         <tr class="h-8 font-bold text-[100px]">
                                             <td>
                                                 <?php
-
-                                                $dayssql = "SELECT * FROM dias
-                                                WHERE idFuncionario = '{$_SESSION["numFuncionario"]}'";
-
-                                                $resultsdays = mysqli_query($conn, $dayssql);
-
-                                                while ($days = mysqli_fetch_array($resultsdays)) {
-                                                    $daysfreeleaves = $days["diasferiasdisponiveis"];
-                                                    $daysusedleaves = $days["diasferiasgozados"];
-                                                    $daysusedmedical = $days["diasmedicasgozados"];
-                                                    $daysusedother = $days["diasoutrosgozados"];
-                                                    if ($daysusedleaves <= 18 && $daysusedleaves >= 7) {
+                                                $daysused = $employee["diasGozados"];
+                                                if ($daysused <= 18 && $daysused >= 7) {
                                                 ?>
-                                                        <div class="rounded-xl text-yellow-500"><?php echo $daysusedleaves; ?>
-                                                        </div>
-                                                    <?php
-                                                    } elseif ($daysusedleaves > 18) {
-                                                    ?>
-                                                        <div class="rounded-xl text-red-600"><?php echo $daysusedleaves; ?>
-                                                        </div>
-                                                    <?php
-                                                    } elseif ($daysusedleaves < 7 && $daysusedleaves >= 0) {
-                                                    ?>
-                                                        <div class="rounded-xl text-green-400"><?php echo $daysusedleaves; ?>
-                                                        </div>
-                                                <?php   }
-                                                } ?>
-                                            </td>
-                                            <td>
+                                                    <div class="rounded-xl text-yellow-500"><?php echo $daysused; ?>
+                                                    </div>
                                                 <?php
-                                                echo $daysusedmedical;
+                                                } elseif ($daysused > 18) {
                                                 ?>
-                                            </td>
-                                            <td>
+                                                    <div class="rounded-xl text-red-600"><?php echo $daysused; ?>
+                                                    </div>
                                                 <?php
-                                                echo $daysusedother;
+                                                } elseif ($daysused < 7 && $daysused >= 0) {
                                                 ?>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-semibold">
-                                                Dias disponíveis: <?php echo $daysfreeleaves; ?>
+                                                    <div class="rounded-xl text-green-400"><?php echo $daysused; ?>
+                                                    </div>
+                                                <?php   } ?>
                                             </td>
                                         </tr>
                                     </tbody>

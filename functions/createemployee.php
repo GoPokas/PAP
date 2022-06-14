@@ -16,14 +16,16 @@ $position = mysqli_real_escape_string($conn, $_POST['position']);
 $department = mysqli_real_escape_string($conn, $_POST['department']);
 
 if (
-    mysqli_query($conn, "INSERT INTO codigopostal(codigoPostal, localidade) VALUES ('$postalcode', '$district')")
-    && mysqli_query($conn, "INSERT INTO funcionario(idFuncionario, nomeFuncionario, moradaFuncionario, dataNascimentoFuncionario, emailFuncionario, idGenero) VALUES ('$id', '$name', '$address', '$birthdate', '$email', '$gender')")
+    mysqli_query($conn, "INSERT INTO codigopostal(id, codigoPostal, distrito) VALUES ('$id', '$postalcode', '$district')")
+    && mysqli_query($conn, "INSERT INTO funcionario(idFuncionario, nomeFuncionario, moradaFuncionario, dataNascimentoFuncionario, emailFuncionario, idCodigoPostal, idGenero) VALUES ('$id', '$name', '$address', '$birthdate', '$email', '$id', '$gender')")
     && mysqli_query($conn, "INSERT INTO funcionario_has_docidentificacao(funcionario_id, docidentificacao_id) VALUES ('$id', '$docid')")
     && mysqli_query($conn, "INSERT INTO funcionario_has_departamento(funcionario_id, departamento_id) VALUES ('$id', '$department')")
     && mysqli_query($conn, "INSERT INTO funcionario_has_cargos(funcionario_id, cargos_id) VALUES ('$id', '$position')")
     && mysqli_query($conn, "INSERT INTO user(numFuncionario, password) VALUES ('$id', md5($password))")
 ) {
-    $msg->success('Funcionário adicionado com sucesso!');
+    echo "Novo funcionário criado com sucesso!";
+    die;
 } else {
-    $msg->error('Erro ao adicionar o funcionário!');
+    echo "Error: " . mysqli_error($conn);
+    die;
 }

@@ -1,10 +1,6 @@
 <?php
 include "../components/footer.php";
 
-$sql = "SELECT * FROM funcionario";
-$result = mysqli_query($conn, $sql);
-$count = mysqli_fetch_assoc($result);
-
 ?>
 
 <!DOCTYPE html>
@@ -26,16 +22,17 @@ $count = mysqli_fetch_assoc($result);
                 <div class="flex items-center justify-between mb-4 top-2">
                 </div>
                 <form class="space-y-2 flex flex-col" enctype="multipart/form-data" autocomplete="off">
-                    <section class="pb-4 ml-2 flex flex-row space-x-4">
-                        <div class="flex flex-col w-full">
-                            <img src="../imgs/pfps/default-avatar.png" alt="Profile Picture" id="profileDisplay" onclick="triggerClick()" class="w-40 h-40 rounded-full shadow mx-auto hover:brightness-75 cursor-pointer">
-                            <input type="file" id="profilePicture" name="profilePicture" onchange="displayImage(this)" id="profilePicture" class="hidden"></input>
-                        </div>
-                    </section>
                     <section class="pb-4 mx-4 flex flex-row space-x-4">
-                        <div class="flex flex-col w-1/5">
+                        <div class="flex flex-col w-1/6">
                             <label for="id" class="font-semibold pl-2">Nº Funcionario: </label>
                             <input type="text" id="id" name="id" placeholder="Insira o Nº Funcionario..." required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                        </div>
+                        <div class="flex flex-col w-1/6">
+                            <label for="group" class="font-semibold pl-2">Chefe? </label>
+                            <select name="group" id="group" id="group" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
+                                <option value="0">Não</option>
+                                <option value="1">Sim</option>
+                            </select>
                         </div>
                         <div class="flex flex-col w-1/5">
                             <label for="name" class="font-semibold pl-2">Nome Completo: </label>
@@ -97,7 +94,7 @@ $count = mysqli_fetch_assoc($result);
                         </div>
                     </section>
                     <section class="pb-4 ml-2 flex flex-row space-x-4">
-                        <div class="flex flex-col w-1/3 ml-2">
+                        <div class="flex flex-col w-1/2 ml-2">
                             <label for="gender" class="font-semibold pl-2">Gênero: </label>
                             <select name="gender" id="gender" id="gender" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                                 <option style="display:none;"></option>
@@ -110,7 +107,7 @@ $count = mysqli_fetch_assoc($result);
                                 ?>
                             </select>
                         </div>
-                        <div class="flex flex-col w-1/3 ml-2">
+                        <div class="flex flex-col w-1/2 ml-2">
                             <label for="docid" class="font-semibold pl-2">Documento de Identificação: </label>
                             <select name="docid" id="docid" id="docid" required class="border rounded-lg py-1 px-2 bg-gray-200 border-gray-200 placeholder-gray-500 focus:border-gray-400 focus:bg-gray-300 focus:outline-none">
                                 <option style="display:none;"></option>
@@ -122,11 +119,6 @@ $count = mysqli_fetch_assoc($result);
                                 }
                                 ?>
                             </select>
-                        </div>
-                        <div class="flex flex-col w-1/3 pr-4">
-                            <label for="" class="font-semibold pl-2">Upload de Documento: </label>
-                            <input type="file" id="doctype" name="doctype" id="doctype" class="w-[0.1px] h-[0.1px] opacity-0"></input>
-                            <label for="doctype" class="cursor-pointer py-1 px-2 text-white font-semibold bg-blue-500 hover:bg-blue-600 rounded ">Escolha o ficheiro...</label>
                         </div>
                     </section>
                     <section class="pb-4 ml-2 flex flex-row space-x-4">
@@ -172,6 +164,7 @@ $count = mysqli_fetch_assoc($result);
     $(document).ready(function() {
         $('#submit').click(function() {
             var id = $('#id').val();
+            var group = $('#group').val();
             var name = $('#name').val();
             var password = $('#password').val();
             var email = $('#email').val();
@@ -188,6 +181,7 @@ $count = mysqli_fetch_assoc($result);
                 url: "../functions/createemployee.php",
                 data: {
                     id: id,
+                    group: group,
                     name: name,
                     password: password,
                     email: email,

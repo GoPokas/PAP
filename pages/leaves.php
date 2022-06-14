@@ -101,12 +101,13 @@ $id = $_SESSION["numFuncionario"];
                 },
                 cache: false,
                 success: function(data) {
-                    <?php $msg->display(); ?>
+                    alert(data);
                 },
                 error: function(xhr, status, error) {
                     console.error(xhr);
                 }
             });
+            window.location.href = "../pages/requests.php";
         })
     });
 </script>

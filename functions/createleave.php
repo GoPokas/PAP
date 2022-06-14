@@ -9,7 +9,7 @@ $leavetype = mysqli_real_escape_string($conn, $_POST["leavetype"]);
 $obs = mysqli_real_escape_string($conn, $_POST['obs']);
 
 if (mysqli_query($conn, "INSERT INTO marcacao(diainicioMarcacao, diafimMarcacao, diapedidoMarcacao, obs, idTiposmarcacao, idFuncionario, idEstadomarcacao) VALUES('$startingdate', '$endingdate', CURRENT_TIMESTAMP, '$obs', '$leavetype', '$id', '0')")) {
-    $msg->success('Marcação enviada com sucesso!');
+    echo "Nova marcação criada com sucesso!";
 } else {
-    $msg->error('Erro ao enviar a marcação!');
+    echo "Error: " . mysqli_error($conn);
 }
